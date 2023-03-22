@@ -1,0 +1,3 @@
+[submodule "projplugin"]
+	path = projplugin
+	url = https://github.com/Strus/neovim-projects-conf.git
