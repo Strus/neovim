@@ -77,6 +77,12 @@ vim.keymap.set('n', '<C-e>', ":lua toggleInlineDiagnostics()<CR>", { silent = tr
 require('fidget').setup {}
 
 local cmp_config = lsp.defaults.cmp_config({
+    sources = {
+        { name = 'path' },
+        { name = 'nvim_lsp' },
+        { name = 'buffer',  keyword_length = 1 },
+        { name = 'luasnip', keyword_length = 1 },
+    },
     mapping = cmp.mapping.preset.insert {
         ['<C-d>'] = cmp.mapping.scroll_docs(-4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
