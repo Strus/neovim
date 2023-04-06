@@ -1,6 +1,7 @@
 local cmp = require('cmp')
 local flutter = require('flutter-tools')
 local lsp = require('lsp-zero')
+local luasnip = require('luasnip')
 local rt = require("rust-tools")
 
 M = {}
@@ -8,8 +9,7 @@ function M.setLspMappings(bufnr, format_keymap_cmd, debug_keymap_cmd)
     local opts = { buffer = bufnr, remap = false }
     local silentOpts = { buffer = bufnr, remap = false, silent = true }
 
-    vim.keymap.set('n', 'gd', function() vim.lsp.buf.definition() end, opts)
-    vim.keymap.set('n', '<C-b>', function() vim.lsp.buf.declaration() end, opts)
+    vim.keymap.set('n', '<leader>fD', function() vim.lsp.buf.declaration() end, opts)
     vim.keymap.set('n', 'K', function() vim.lsp.buf.hover() end, opts)
     vim.keymap.set('n', '<leader>fs', function() vim.lsp.buf.workspace_symbol() end, opts)
     vim.keymap.set('n', ']d', function() vim.diagnostic.goto_next() end, opts)
@@ -17,31 +17,30 @@ function M.setLspMappings(bufnr, format_keymap_cmd, debug_keymap_cmd)
     -- vim.keymap.set('n', '<leader>ca', function() vim.lsp.buf.code_action() end, opts)
     vim.keymap.set('n', '<leader>ca', ':CodeActionMenu<CR>', silentOpts)
     vim.keymap.set('x', '<leader>ca', ':CodeActionMenu<CR>', silentOpts)
-    -- vim.keymap.set('n', '<leader>fr', function() vim.lsp.buf.references() end, opts)
     vim.keymap.set('n', '<leader>cr', function() vim.lsp.buf.rename() end, opts)
     vim.keymap.set('i', '<C-n>', function() vim.lsp.buf.signature_help() end, opts)
     vim.keymap.set('n', 'gh', ':ClangdSwitchSourceHeader<CR>', silentOpts)
-    vim.keymap.set('n', '<leader>cf', ':' .. format_keymap_cmd .. '<CR>', silentOpts)
+    vim.keymap.set('n', '<leader>cf', vim.lsp.buf.format, silentOpts)
 
-    vim.api.nvim_create_autocmd("BufWritePre", {
-        pattern = "*.c,*.h,*.cpp,*.hpp",
-        callback = function()
-            vim.cmd("lua vim.lsp.buf.format()")
-            -- vim.cmd("LspZeroFormat")
-        end
-    })
-    vim.api.nvim_create_autocmd("BufWritePre", {
-        pattern = "*.dart,*.lua",
-        callback = function()
-            vim.cmd("lua vim.lsp.buf.format()")
-        end
-    })
-    vim.api.nvim_create_autocmd("BufWritePre", {
-        pattern = "*.rs",
-        callback = function()
-            vim.cmd("RustFmt")
-        end
-    })
+    -- vim.api.nvim_create_autocmd("BufWritePre", {
+    --     pattern = "*.c,*.h,*.cpp,*.hpp",
+    --     callback = function()
+    --         -- vim.cmd("lua vim.lsp.buf.format()")
+    --         -- vim.cmd("LspZeroFormat")
+    --     end
+    -- })
+    -- vim.api.nvim_create_autocmd("BufWritePre", {
+    --     pattern = "*.dart,*.lua",
+    --     callback = function()
+    --         -- vim.cmd("lua vim.lsp.buf.format()")
+    --     end
+    -- })
+    -- vim.api.nvim_create_autocmd("BufWritePre", {
+    --     pattern = "*.rs",
+    --     callback = function()
+    --         -- vim.cmd("RustFmt")
+    --     end
+    -- })
     vim.keymap.set('n', '<leader>dr', ':' .. debug_keymap_cmd .. '<CR>', { silent = true })
 end
 
@@ -80,10 +79,11 @@ local cmp_config = lsp.defaults.cmp_config({
     sources = {
         { name = 'path' },
         { name = 'nvim_lsp' },
-        { name = 'buffer',  keyword_length = 1 },
-        { name = 'luasnip', keyword_length = 1 },
+        -- { name = 'buffer',  keyword_length = 3 },
+        { name = 'luasnip', keyword_length = 3 },
     },
     mapping = cmp.mapping.preset.insert {
+        ['<Esc>'] = cmp.mapping.abort(),
         ['<C-d>'] = cmp.mapping.scroll_docs(-4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete(),
@@ -94,8 +94,8 @@ local cmp_config = lsp.defaults.cmp_config({
         ['<Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
-                -- elseif luasnip.expand_or_jumpable() then
-                -- luasnip.expand_or_jump()
+                elseif luasnip.expand_or_jumpable() then
+                    luasnip.expand_or_jump()
             else
                 fallback()
             end
