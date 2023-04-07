@@ -47,3 +47,17 @@ vim.opt.colorcolumn = '120'
 vim.opt.wildmenu = true
 
 vim.opt.splitbelow = true
+
+vim.opt.autoread = true
+vim.api.nvim_create_autocmd({"FocusGained","BufEnter","CursorHold","CursorHoldI"}, {
+    pattern = "*",
+    callback = function()
+        vim.cmd("checktime")
+    end
+})
+vim.api.nvim_create_autocmd("FileChangedShellPost", {
+    pattern = "*",
+    callback = function()
+        vim.cmd('echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None')
+    end
+})
