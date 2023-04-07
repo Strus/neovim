@@ -39,8 +39,12 @@ local builtin = require('telescope.builtin')
 
 vim.keymap.set('n', '<leader>fg', builtin.git_files, {})
 vim.keymap.set('n', '<leader>gc', builtin.git_branches, {})
-vim.keymap.set('n', '<leader>ff', ':lua require("telescope.builtin").find_files({hidden=true})<CR>', { silent = true })
-vim.keymap.set('n', '<C-f>', builtin.live_grep, {})
+vim.keymap.set('n', '<leader>fF', ':lua require("telescope.builtin").find_files({hidden=true})<CR>', { silent = true })
+vim.keymap.set('n', '<leader>ff',
+    ':lua require("telescope.builtin").find_files({hidden=true, glob_pattern="!*test*"})<CR>', { silent = true })
+vim.keymap.set('n', '<leader>fT', builtin.live_grep, {})
+vim.keymap.set('n', '<leader>ft', ':lua require("telescope.builtin").live_grep({glob_pattern="!*test*"})<CR>',
+    { silent = true })
 vim.keymap.set('n', '<leader>fr', builtin.lsp_references, {})
 vim.keymap.set('n', '<leader>fd', builtin.lsp_definitions, {})
 vim.keymap.set('n', '<leader>fi', builtin.lsp_implementations, {})
@@ -49,6 +53,7 @@ vim.keymap.set('n', '<leader>fe', builtin.diagnostics, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fc', builtin.commands, {})
 vim.keymap.set('n', '<leader>fk', builtin.keymaps, {})
+vim.keymap.set('n', '<C-f>', builtin.grep_string, {})
 vim.keymap.set('n', '<leader><C-f>', function()
     builtin.grep_string({ search = vim.fn.input("Find in files: ") });
 end)
