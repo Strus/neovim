@@ -41,7 +41,7 @@ return require('packer').startup(function(use)
     }
     use 'j-hui/fidget.nvim'
     use 'smithbm2316/centerpad.nvim'
-    -- use { 'shortcuts/no-neck-pain.nvim', tag = '*' }
+    use { 'shortcuts/no-neck-pain.nvim', tag = '*' }
     use 'kevinhwang91/nvim-bqf'
     use 'nvim-tree/nvim-web-devicons'
     use 'nvim-tree/nvim-tree.lua'
