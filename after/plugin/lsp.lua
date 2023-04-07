@@ -1,6 +1,7 @@
 local cmp = require('cmp')
 local flutter = require('flutter-tools')
 local lsp = require('lsp-zero')
+local luasnip = require('luasnip')
 local rt = require("rust-tools")
 
 M = {}
@@ -94,8 +95,8 @@ local cmp_config = lsp.defaults.cmp_config({
         ['<Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
-                -- elseif luasnip.expand_or_jumpable() then
-                -- luasnip.expand_or_jump()
+                elseif luasnip.expand_or_jumpable() then
+                    luasnip.expand_or_jump()
             else
                 fallback()
             end
