@@ -81,10 +81,11 @@ local cmp_config = lsp.defaults.cmp_config({
     sources = {
         { name = 'path' },
         { name = 'nvim_lsp' },
-        { name = 'buffer',  keyword_length = 1 },
-        { name = 'luasnip', keyword_length = 1 },
+        -- { name = 'buffer',  keyword_length = 3 },
+        { name = 'luasnip', keyword_length = 3 },
     },
     mapping = cmp.mapping.preset.insert {
+        ['<Esc>'] = cmp.mapping.abort(),
         ['<C-d>'] = cmp.mapping.scroll_docs(-4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete(),
