@@ -75,7 +75,6 @@ return require('packer').startup(function(use)
         commit = "5269fb1220f0909c82be8a0c9eab657a55a5f1fa",
     })
     use "tpope/vim-fugitive"
-    use 'lewis6991/impatient.nvim'
     use 'vim-test/vim-test'
     use 'tpope/vim-dispatch'
     use 'okcompute/vim-nose'
