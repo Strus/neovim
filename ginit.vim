@@ -4,7 +4,7 @@ set mouse=a
 " Set Editor Font
 if exists(':GuiFont')
     " Use GuiFont! to ignore font errors
-    GuiFont! Iosevka NF:h13
+    GuiFont! Iosevka NF:h13:l
 endif
 
 " Disable GUI Tabline
