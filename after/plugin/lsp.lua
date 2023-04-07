@@ -83,7 +83,10 @@ local cmp_config = lsp.defaults.cmp_config({
         { name = 'luasnip', keyword_length = 3 },
     },
     mapping = cmp.mapping.preset.insert {
-        ['<Esc>'] = cmp.mapping.abort(),
+        ['<Esc>'] = cmp.mapping(function()
+            cmp.mapping.abort()
+            vim.cmd.stopinsert()
+        end, { 'i' }),
         ['<C-d>'] = cmp.mapping.scroll_docs(-4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete(),
