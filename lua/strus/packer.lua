@@ -57,14 +57,6 @@ return require('packer').startup(function(use)
     use { 'simrat39/rust-tools.nvim' }
     use { "ahmedkhalf/project.nvim" }
     use 'terrortylor/nvim-comment'
-    -- use {
-    --     "folke/which-key.nvim",
-    --     config = function()
-    --         vim.o.timeout = true
-    --         vim.o.timeoutlen = 300
-    --         require("which-key").setup()
-    --     end
-    -- }
     use {
         "windwp/nvim-autopairs",
         config = function() require("nvim-autopairs").setup {} end
@@ -94,10 +86,6 @@ return require('packer').startup(function(use)
         "danymat/neogen",
         requires = "nvim-treesitter/nvim-treesitter",
         tag = "*"
-    }
-    use {
-        'glacambre/firenvim',
-        run = function() vim.fn['firenvim#install'](0) end
     }
     use 'jose-elias-alvarez/null-ls.nvim'
     use 'rust-lang/rust.vim'
