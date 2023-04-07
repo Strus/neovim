@@ -5,18 +5,19 @@ require("dapui").setup({
     layouts = {
         {
             elements = {
-                "repl",
+                -- "console",
+                "breakpoints",
                 "watches",
                 "stacks",
-                "breakpoints",
+                "scopes"
             },
-            size = 40, -- 40 columns
+            size = 60, -- 40 columns
             position = "right",
         },
         {
             elements = {
-                { id = "scopes", size = 0.5 },
-                { id = "console", size = 0.5 },
+                -- { id = "scopes", size = 0.3 },
+                { id = "repl", size = 1.0 },
             },
             size = 0.25, -- 25% of total lines
             position = "bottom",
