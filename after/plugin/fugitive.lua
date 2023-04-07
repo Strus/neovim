@@ -58,3 +58,6 @@ vim.keymap.set('n', '<leader>gb', ':Git blame --date=short<CR>', { silent = true
 vim.keymap.set('n', '<leader>gp', ':Git pull --recurse-submodules<CR>', { silent = true })
 vim.keymap.set('n', '<leader>gu', ':Git pull --recurse-submodules<CR>', { silent = true })
 vim.keymap.set('n', '<leader>gs', ':G<CR>', { silent = true })
+
+vim.api.nvim_create_user_command('Push', '20 split | terminal git push', {})
+vim.api.nvim_create_user_command('Pull', '20 split | terminal git pull --recurse-submodules', {})
