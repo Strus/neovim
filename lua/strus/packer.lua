@@ -39,6 +39,14 @@ return require('packer').startup(function(use)
             { 'rafamadriz/friendly-snippets' }, -- Optional
         }
     }
+    use {
+        "SmiteshP/nvim-navbuddy",
+        requires = {
+            "neovim/nvim-lspconfig",
+            "SmiteshP/nvim-navic",
+            "MunifTanjim/nui.nvim"
+        }
+    }
     use 'j-hui/fidget.nvim'
     use 'smithbm2316/centerpad.nvim'
     use { 'shortcuts/no-neck-pain.nvim', tag = '*' }
