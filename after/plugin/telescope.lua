@@ -57,7 +57,8 @@ vim.keymap.set('n', '<C-f>', builtin.grep_string, {})
 vim.keymap.set('n', '<leader><C-f>', function()
     builtin.grep_string({ search = vim.fn.input("Find in files: ") });
 end)
-vim.keymap.set('n', '<leader><Tab>', builtin.oldfiles, {})
+vim.keymap.set('n', '<leader><Tab>', builtin.buffers, {})
+vim.keymap.set('n', '<leader>fo', builtin.oldfiles, {})
 
 require('telescope').load_extension('projects')
 vim.keymap.set('n', '<leader>pp', function() require 'telescope'.extensions.projects.projects {} end)
