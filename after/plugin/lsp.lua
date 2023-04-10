@@ -11,7 +11,7 @@ function M.setLspMappings(bufnr, format_keymap_cmd, debug_keymap_cmd)
 
     vim.keymap.set('n', '<leader>fD', function() vim.lsp.buf.declaration() end, opts)
     vim.keymap.set('n', 'K', function() vim.lsp.buf.hover() end, opts)
-    vim.keymap.set('n', '<leader>fs', function() vim.lsp.buf.workspace_symbol() end, opts)
+    -- vim.keymap.set('n', '<leader>fs', function() vim.lsp.buf.workspace_symbol() end, opts)
     vim.keymap.set('n', ']d', function() vim.diagnostic.goto_next() end, opts)
     vim.keymap.set('n', '[d', function() vim.diagnostic.goto_prev() end, opts)
     -- vim.keymap.set('n', '<leader>ca', function() vim.lsp.buf.code_action() end, opts)
