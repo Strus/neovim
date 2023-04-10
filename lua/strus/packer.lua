@@ -143,4 +143,10 @@ return require('packer').startup(function(use)
             require("early-retirement").setup()
         end,
     }
+    use {
+        'ggandor/leap.nvim',
+        config = function()
+            require('leap').add_default_mappings()
+        end,
+    }
 end)
