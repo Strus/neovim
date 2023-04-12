@@ -19,7 +19,7 @@ require('telescope').setup({
             fname_width = 150
         },
         oldfiles = {
-            path_display = { "tail" },
+            path_display = { "smart" },
             layout_strategy = "center",
             preview = {
                 hide_on_startup = true,
