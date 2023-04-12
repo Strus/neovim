@@ -137,12 +137,12 @@ return require('packer').startup(function(use)
         run = function() vim.fn["mkdp#util#install"]() end,
     })
     use { 'petertriho/nvim-scrollbar' }
-    use {
-        "chrisgrieser/nvim-early-retirement",
-        config = function()
-            require("early-retirement").setup()
-        end,
-    }
+    -- use {
+    --     "chrisgrieser/nvim-early-retirement",
+    --     config = function()
+    --         require("early-retirement").setup()
+    --     end,
+    -- }
     use {
         'ggandor/leap.nvim',
         config = function()
