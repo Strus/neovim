@@ -28,7 +28,7 @@ function _G.toggleQuickfix()
     end
 end
 
-vim.cmd('let test#strategy = "neovim"')
+vim.cmd('let test#strategy = "dispatch"')
 vim.cmd('let g:test#neovim#start_normal = 1')
 
 vim.keymap.set("n", "<leader>to", ":lua showFileInUpperSplit()<CR>", { silent = true })
