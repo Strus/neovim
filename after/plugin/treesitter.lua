@@ -10,7 +10,7 @@ require 'nvim-treesitter.configs'.setup {
         "dart",
         "gitcommit",
         "gitignore",
-        "help",
+        "vimdoc",
         "html",
         "json",
         "lua",
