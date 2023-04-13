@@ -54,7 +54,5 @@ vim.fn.sign_define('DapBreakpointRejected',
 vim.fn.sign_define('DapLogPoint', { text = '', texthl = 'DapLogPoint', linehl = 'DapLogPoint', numhl = 'DapLogPoint' })
 vim.fn.sign_define('DapStopped', { text = '', texthl = 'DapStopped', linehl = 'DapStopped', numhl = 'DapStopped' })
 
-require('dap-python').setup('/usr/local/bin/python3')
-
 vim.keymap.set('n', '<leader>db', ':DapToggleBreakpoint<CR>', { silent = true })
 vim.keymap.set('n', '<leader>dl', ':lua require("dap").list_breakpoints()<CR>:copen<CR>', { silent = true })
