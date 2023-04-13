@@ -6,7 +6,6 @@ require('lualine').setup({
     options = {
         component_separators = { left = '|', right = '|' },
         section_separators = { left = '', right = '' },
-        theme = 'onedark',
     },
     sections = {
         lualine_b = { 'branch', 'diff' },
