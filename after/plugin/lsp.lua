@@ -4,43 +4,22 @@ local lsp = require('lsp-zero')
 local luasnip = require('luasnip')
 local rt = require("rust-tools")
 
-M = {}
-function M.setLspMappings(bufnr, format_keymap_cmd, debug_keymap_cmd)
+local function setLspMappings(bufnr, format_keymap_cmd, debug_keymap_cmd)
     local opts = { buffer = bufnr, remap = false }
     local silentOpts = { buffer = bufnr, remap = false, silent = true }
 
-    vim.keymap.set('n', '<leader>fD', function() vim.lsp.buf.declaration() end, opts)
-    vim.keymap.set('n', 'K', function() vim.lsp.buf.hover() end, opts)
+    vim.keymap.set('n', '<leader>fD', vim.lsp.buf.declaration, opts)
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
     -- vim.keymap.set('n', '<leader>fs', function() vim.lsp.buf.workspace_symbol() end, opts)
-    vim.keymap.set('n', ']d', function() vim.diagnostic.goto_next() end, opts)
-    vim.keymap.set('n', '[d', function() vim.diagnostic.goto_prev() end, opts)
+    vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+    vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
     -- vim.keymap.set('n', '<leader>ca', function() vim.lsp.buf.code_action() end, opts)
     vim.keymap.set('n', '<leader>ca', ':CodeActionMenu<CR>', silentOpts)
     vim.keymap.set('x', '<leader>ca', ':CodeActionMenu<CR>', silentOpts)
-    vim.keymap.set('n', '<leader>cr', function() vim.lsp.buf.rename() end, opts)
-    vim.keymap.set('i', '<C-n>', function() vim.lsp.buf.signature_help() end, opts)
+    vim.keymap.set('n', '<leader>cr', vim.lsp.buf.rename, opts)
+    vim.keymap.set('i', '<C-n>', vim.lsp.buf.signature_help, opts)
     vim.keymap.set('n', 'gh', ':ClangdSwitchSourceHeader<CR>', silentOpts)
     vim.keymap.set('n', '<leader>cf', vim.lsp.buf.format, silentOpts)
-
-    -- vim.api.nvim_create_autocmd("BufWritePre", {
-    --     pattern = "*.c,*.h,*.cpp,*.hpp",
-    --     callback = function()
-    --         -- vim.cmd("lua vim.lsp.buf.format()")
-    --         -- vim.cmd("LspZeroFormat")
-    --     end
-    -- })
-    -- vim.api.nvim_create_autocmd("BufWritePre", {
-    --     pattern = "*.dart,*.lua",
-    --     callback = function()
-    --         -- vim.cmd("lua vim.lsp.buf.format()")
-    --     end
-    -- })
-    -- vim.api.nvim_create_autocmd("BufWritePre", {
-    --     pattern = "*.rs",
-    --     callback = function()
-    --         -- vim.cmd("RustFmt")
-    --     end
-    -- })
     vim.keymap.set('n', '<leader>dr', ':' .. debug_keymap_cmd .. '<CR>', { silent = true })
 
     vim.api.nvim_create_autocmd("BufWritePre", {
@@ -57,7 +36,7 @@ lsp.preset({
 })
 lsp.on_attach(
     function(client, bufnr)
-        M.setLspMappings(bufnr, "LspZeroFormat", "DapContinue")
+        setLspMappings(bufnr, "LspZeroFormat", "DapContinue")
     end
 )
 
@@ -137,7 +116,7 @@ vim.api.nvim_create_autocmd("CursorHold", {
 
 
 flutter.setup({
-    on_attach = M.setLspMappings(bufnr, "lua vim.lsp.buf.format()", "FlutterVisualDebug")
+    on_attach = setLspMappings(bufnr, "lua vim.lsp.buf.format()", "FlutterVisualDebug")
 })
 
 
@@ -145,7 +124,7 @@ local codelldb_path = vim.fn.expand('~/.local/share/nvim/mason/bin/codelldb')
 local liblldb_path = vim.fn.expand('~/.local/share/nvim/mason/packages/codelldb/extension/lldb/lib/liblldb.dylib')
 local opts = {
     server = {
-        on_attach = M.setLspMappings(bufnr, "RustFmt", "RustDebuggables"),
+        on_attach = setLspMappings(bufnr, "RustFmt", "RustDebuggables"),
         settings = {
             ["rust-analyzer"] = {
                 check = {
