@@ -1,5 +1,24 @@
 vim.o.termguicolors = true
 
+vim.api.nvim_create_autocmd("UIEnter", {
+    group = vim.api.nvim_create_augroup("set_terminal_bg", {}),
+    callback = function()
+        local bg = vim.api.nvim_get_hl_by_name("Normal", true)["background"]
+        if not bg then
+            return
+        end
+
+        os.execute('tmux setw synchronize-panes on')
+        os.execute(string.format('printf "\\033]11;#%06x\\007"', bg))
+        if os.getenv("TMUX") then
+            os.execute(string.format('printf "\\ePtmux;\\e\\033]11;#%06x\\007\\e\\\\"', bg))
+        end
+        os.execute('tmux setw synchronize-panes off')
+
+        return true
+    end,
+})
+
 local function onedark()
     local onedark_util = require('onedark.util')
     local dimValue = 0.30
