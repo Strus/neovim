@@ -1,5 +1,5 @@
 local function cwd()
-    return [["P: " .. vim.fn.getcwd()]]
+    return [["P: " .. vim.fn.fnamemodify(vim.fn.getcwd(), ':t')]]
 end
 
 require('lualine').setup({
