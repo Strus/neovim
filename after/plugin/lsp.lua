@@ -42,6 +42,13 @@ function M.setLspMappings(bufnr, format_keymap_cmd, debug_keymap_cmd)
     --     end
     -- })
     vim.keymap.set('n', '<leader>dr', ':' .. debug_keymap_cmd .. '<CR>', { silent = true })
+
+    vim.api.nvim_create_autocmd("BufWritePre", {
+        pattern = '*.rs,*.lua,*.c,*.cpp,*.h,*.hpp,*.py',
+        callback = function()
+            vim.lsp.buf.format({ async = false })
+        end,
+    })
 end
 
 lsp.preset({
