@@ -54,33 +54,6 @@ local function onedark()
     end
 end
 
-local function nightfox()
-    local variants = {
-        "nightfox",
-        "carbonfox",
-        "nordfox",
-    }
-
-    local variant = variants[math.random(#variants)]
-    vim.cmd.colorscheme(variant)
-end
-
-local function rosepine()
-    vim.cmd.colorscheme('rose-pine')
-end
-
-local function catppuccin()
-    local variants = {
-        "catppuccin",
-        "catppuccin-frappe",
-        "catppuccin-macchiato",
-        "catppuccin-mocha",
-    }
-
-    local variant = variants[math.random(#variants)]
-    vim.cmd.colorscheme(variant)
-end
-
 local function everforest()
     vim.g.everforest_background = 'hard'
     vim.g.everforest_better_performance = 1
@@ -88,13 +61,26 @@ local function everforest()
     vim.cmd.colorscheme("everforest")
 end
 
+local function rosepine()
+    require('rose-pine').setup({
+        disable_italics = true,
+    })
+
+    vim.cmd.colorscheme("rose-pine-moon")
+end
+
 local themes = {
     onedark,
-    nightfox,
-    rosepine,
-    catppuccin,
     everforest,
+    rosepine,
+    function() vim.cmd.colorscheme('nightfox') end,
+    function() vim.cmd.colorscheme("carbonfox") end,
+    function() vim.cmd.colorscheme("nordfox") end,
+    function() vim.cmd.colorscheme("catppuccin-frappe") end,
+    function() vim.cmd.colorscheme("catppuccin-macchiato") end,
+    function() vim.cmd.colorscheme("catppuccin-mocha") end,
 }
 
 themes[math.random(#themes)]()
 
+vim.api.nvim_create_user_command('RandomTheme', themes[math.random(#themes)], {})
