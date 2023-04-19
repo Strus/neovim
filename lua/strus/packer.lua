@@ -79,6 +79,7 @@ return require('packer').startup(function(use)
     use 'rust-lang/rust.vim'
     use 'mfussenegger/nvim-dap-python'
     use 'Vimjas/vim-python-pep8-indent'
+    use 'p00f/clangd_extensions.nvim'
 
     -- ui improvements
     use { 'fgheng/winbar.nvim' }
