@@ -25,6 +25,9 @@ tree.setup({
     git = {
         enable = false,
     },
+    hijack_directories = {
+        enable = false,
+    },
 })
 
 vim.keymap.set('n', '<M-1>', function()
@@ -33,15 +36,3 @@ end)
 vim.keymap.set('n', '<M-2>', function()
     tree_api.tree.toggle(true, false, vim.fn.expand('%:p:h'))
 end)
-
-local function open_nvim_tree(data)
-    local directory = vim.fn.isdirectory(data.file) == 1
-    if not directory then
-        return
-    end
-
-    vim.cmd.cd(data.file)
-    tree_api.tree.open()
-end
-
-vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
