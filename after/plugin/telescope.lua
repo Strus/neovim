@@ -66,3 +66,19 @@ vim.keymap.set('n', '<leader>pp', function() require 'telescope'.extensions.proj
 vim.cmd("autocmd User TelescopePreviewerLoaded setlocal wrap")
 
 require('telescope').load_extension('fzf')
+
+local function open_nvim_tree(data)
+    if data.file == '' or data.file == nil then
+        require('telescope').extensions.projects.projects({})
+        return
+    end
+
+    local is_directory = vim.fn.isdirectory(data.file) == 1
+    if is_directory then
+        vim.cmd.cd(data.file)
+        require("telescope.builtin").find_files({hidden=true})
+        return
+    end
+end
+
+vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
