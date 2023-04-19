@@ -120,5 +120,5 @@ if vim.fn.has("mac") == 1 then
 elseif vim.fn.has("unix") == 1 then
     vim.keymap.set("n", "gx", ':call jobstart(["xdg-open", expand("<cfile>")], {"detach": v:true})<CR>', {})
 else
-    vim.keymap.set("n", "gx", ':!start firefox ' .. vim.fn.expand("<cfile>") .. '<CR>', {silent = true})
+    vim.keymap.set("n", "gx", function() vim.cmd(':!start firefox ' .. vim.fn.expand("<cfile>")) end, {silent = true})
 end
