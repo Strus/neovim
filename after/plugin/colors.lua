@@ -1,4 +1,5 @@
 vim.o.termguicolors = true
+vim.o.background = "dark"
 
 vim.api.nvim_create_autocmd("UIEnter", {
     group = vim.api.nvim_create_augroup("set_terminal_bg", {}),
@@ -61,24 +62,13 @@ local function everforest()
     vim.cmd.colorscheme("everforest")
 end
 
-local function rosepine()
-    require('rose-pine').setup({
-        disable_italics = true,
-    })
-
-    vim.cmd.colorscheme("rose-pine-moon")
-end
-
 local themes = {
     onedark,
     everforest,
-    rosepine,
-    function() vim.cmd.colorscheme('nightfox') end,
     function() vim.cmd.colorscheme("carbonfox") end,
     function() vim.cmd.colorscheme("nordfox") end,
-    function() vim.cmd.colorscheme("catppuccin-frappe") end,
-    function() vim.cmd.colorscheme("catppuccin-macchiato") end,
-    function() vim.cmd.colorscheme("catppuccin-mocha") end,
+    function() vim.cmd.colorscheme("gruvbox") end,
+    function() vim.cmd.colorscheme("kanagawa-dragon") end,
 }
 
 themes[math.random(#themes)]()

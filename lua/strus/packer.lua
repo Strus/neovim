@@ -40,9 +40,9 @@ return require('packer').startup(function(use)
     -- themes
     use 'monsonjeremy/onedark.nvim'
     use 'EdenEast/nightfox.nvim'
-    use({ 'rose-pine/neovim', as = 'rose-pine' })
-    use { "catppuccin/nvim", as = "catppuccin" }
     use 'sainnhe/everforest'
+    use 'ellisonleao/gruvbox.nvim'
+    use 'rebelot/kanagawa.nvim'
 
     -- code-specific (lsp etc.)
     use {
