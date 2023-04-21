@@ -114,7 +114,8 @@ vim.keymap.set('n', 'N', 'Nzzzv')
 
 vim.keymap.set('n', 'Q', ':q')
 vim.keymap.set('n', 'q:', ':q')
-vim.keymap.set('n', '<leader>q', ':close<CR>')
+vim.keymap.set('n', '<leader>q', ':close<CR>', { silent = true })
+vim.keymap.set('n', '<leader>w', ':wa<CR>', { silent = true })
 
 vim.keymap.set('n', '<leader>rr', ':%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>')
 vim.keymap.set('v', '<leader>rr', 'y:%s/\\<<C-r>"\\>/<C-r>"/gI<Left><Left><Left>')
@@ -127,5 +128,5 @@ if vim.fn.has("mac") == 1 then
 elseif vim.fn.has("unix") == 1 then
     vim.keymap.set("n", "gx", ':call jobstart(["xdg-open", expand("<cfile>")], {"detach": v:true})<CR>', {})
 else
-    vim.keymap.set("n", "gx", function() vim.cmd(':!start firefox ' .. vim.fn.expand("<cfile>")) end, {silent = true})
+    vim.keymap.set("n", "gx", function() vim.cmd(':!start firefox ' .. vim.fn.expand("<cfile>")) end, { silent = true })
 end
