@@ -124,6 +124,10 @@ vim.keymap.set('n', '<leader>x', '<cmd>!chmod +x %<CR>', { silent = true })
 
 vim.keymap.set('n', '<leader>/', ':g/')
 
+vim.keymap.set('n', '<leader>bt', ':tab new<CR>', { silent = true })
+vim.keymap.set('n', '<leader>bl', ':tabnext<CR>', { silent = true })
+vim.keymap.set('n', '<leader>bh', ':tabprevious<CR>', { silent = true })
+
 if vim.fn.has("mac") == 1 then
     vim.keymap.set("n", "gx", ':call jobstart(["open", expand("<cfile>")], {"detach": v:true})<CR>', {})
 elseif vim.fn.has("unix") == 1 then
