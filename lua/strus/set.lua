@@ -25,7 +25,6 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.opt.autoindent = false
 vim.opt.smartindent = false
 
-vim.opt.wrap = false
 vim.opt.wrap = true
 vim.opt.breakindent = true
 vim.opt.showbreak = '↪  '
@@ -52,7 +51,7 @@ vim.opt.wildmenu = true
 vim.opt.splitbelow = true
 
 vim.opt.autoread = true
-vim.api.nvim_create_autocmd({"FocusGained","BufEnter","CursorHold","CursorHoldI"}, {
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
     pattern = "*",
     callback = function()
         vim.cmd("checktime")
@@ -74,6 +73,8 @@ vim.api.nvim_create_user_command(
         vim.cmd.cfdo(cfdo_args)
     end,
     {
-        nargs='?'
+        nargs = '?'
     }
 )
+
+-- command! -nargs=1 ToClip :let @+=@<args>
