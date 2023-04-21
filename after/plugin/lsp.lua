@@ -22,11 +22,13 @@ local function setLspMappings(bufnr, format_keymap_cmd, debug_keymap_cmd)
     vim.keymap.set('n', '<leader>cf', vim.lsp.buf.format, silentOpts)
     vim.keymap.set('n', '<leader>dr', ':' .. debug_keymap_cmd .. '<CR>', { silent = true })
 
+    local format_group = vim.api.nvim_create_augroup("LspFormatOnSave", { clear = true })
     vim.api.nvim_create_autocmd("BufWritePre", {
         pattern = '*.rs,*.lua,*.c,*.cpp,*.h,*.hpp,*.py',
         callback = function()
             vim.lsp.buf.format({ async = false })
         end,
+        group = format_group,
     })
 end
 
