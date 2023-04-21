@@ -89,8 +89,6 @@ return require('packer').startup(function(use)
     use 'nvim-lualine/lualine.nvim'
     use({
         "luukvbaal/statuscol.nvim",
-        config = function() require("statuscol").setup() end,
-        commit = "5269fb1220f0909c82be8a0c9eab657a55a5f1fa",
     })
     use {
         'lewis6991/gitsigns.nvim',
