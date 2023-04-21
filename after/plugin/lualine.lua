@@ -15,6 +15,6 @@ require('lualine').setup({
                 separator = { left = '', right = '' }
             },
         },
-        lualine_y = { 'diagnostics', 'progress' },
+        lualine_y = { 'progress' },
     },
 })
