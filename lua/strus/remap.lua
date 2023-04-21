@@ -80,6 +80,13 @@ vim.keymap.set('i', 'jj', '<Esc>')
 vim.keymap.set('x', '<leader>p', 'p')
 vim.keymap.set('x', 'p', '"_dP')
 
+-- Undo breakpoints
+vim.keymap.set('n', ',', '<C-g>u')
+vim.keymap.set('n', '.', '<C-g>u')
+vim.keymap.set('n', '!', '<C-g>u')
+vim.keymap.set('n', '?', '<C-g>u')
+vim.keymap.set('n', ';', '<C-g>u')
+
 vim.keymap.set('n', '<leader>\\', ':vs<CR> <C-w>l', { silent = true })
 vim.keymap.set('n', '<leader>-', ':sp<CR> <C-w>j', { silent = true })
 vim.keymap.set('n', '<leader>h', '<C-w>h', { silent = true })
