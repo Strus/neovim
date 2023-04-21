@@ -26,6 +26,9 @@ vim.opt.autoindent = false
 vim.opt.smartindent = false
 
 vim.opt.wrap = false
+vim.opt.wrap = true
+vim.opt.breakindent = true
+vim.opt.showbreak = '↪  '
 
 vim.opt.swapfile = false
 vim.opt.backup = false
