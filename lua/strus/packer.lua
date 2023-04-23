@@ -36,6 +36,7 @@ return require('packer').startup(function(use)
             }
         end
     }
+    use 'RRethy/vim-illuminate'
 
     -- themes
     use 'monsonjeremy/onedark.nvim'
