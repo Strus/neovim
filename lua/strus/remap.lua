@@ -1,60 +1,60 @@
 function _G.toggleNuMode()
-    if (vim.opt.relativenumber:get() == true) then
-        vim.opt.number = true
-        vim.opt.relativenumber = false
-    else
-        vim.opt.number = true
-        vim.opt.relativenumber = true
-    end
+  if (vim.opt.relativenumber:get() == true) then
+    vim.opt.number = true
+    vim.opt.relativenumber = false
+  else
+    vim.opt.number = true
+    vim.opt.relativenumber = true
+  end
 end
 
 function _G.toggleLineNumbers()
-    if (vim.opt.number:get() == true) then
-        vim.opt.number = false
-        vim.opt.relativenumber = false
-    else
-        vim.opt.number = true
-        vim.opt.relativenumber = true
-    end
+  if (vim.opt.number:get() == true) then
+    vim.opt.number = false
+    vim.opt.relativenumber = false
+  else
+    vim.opt.number = true
+    vim.opt.relativenumber = true
+  end
 end
 
 function _G.toggleSignColumnAndLineNumbers()
-    if (vim.opt.number:get() == true or vim.opt.signcolumn:get() ~= 'no') then
-        vim.opt.number = false
-        vim.opt.relativenumber = false
-        vim.opt.signcolumn = 'no'
-    else
-        vim.opt.number = true
-        vim.opt.relativenumber = true
-        vim.opt.signcolumn = 'yes:1'
-    end
+  if (vim.opt.number:get() == true or vim.opt.signcolumn:get() ~= 'no') then
+    vim.opt.number = false
+    vim.opt.relativenumber = false
+    vim.opt.signcolumn = 'no'
+  else
+    vim.opt.number = true
+    vim.opt.relativenumber = true
+    vim.opt.signcolumn = 'yes:1'
+  end
 end
 
 function _G.toggleWrap()
-    if (vim.opt.wrap:get() == true) then
-        vim.opt.wrap = false
-    else
-        vim.opt.wrap = true
-    end
+  if (vim.opt.wrap:get() == true) then
+    vim.opt.wrap = false
+  else
+    vim.opt.wrap = true
+  end
 end
 
 function _G.toggleCursorline()
-    if (vim.opt.cursorline:get() == true) then
-        vim.opt.cursorline = false
-    else
-        vim.opt.cursorline = true
-    end
+  if (vim.opt.cursorline:get() == true) then
+    vim.opt.cursorline = false
+  else
+    vim.opt.cursorline = true
+  end
 end
 
 _G.quickfixOpened = false
 function _G.toggleQuickFix()
-    if (_G.quickfixOpened == true) then
-        _G.quickfixOpened = false
-        vim.cmd("cclose")
-    else
-        _G.quickfixOpened = true
-        vim.cmd("copen")
-    end
+  if (_G.quickfixOpened == true) then
+    _G.quickfixOpened = false
+    vim.cmd("cclose")
+  else
+    _G.quickfixOpened = true
+    vim.cmd("copen")
+  end
 end
 
 vim.g.mapleader = " "
@@ -129,9 +129,9 @@ vim.keymap.set('n', '<leader>bl', ':tabnext<CR>', { silent = true })
 vim.keymap.set('n', '<leader>bh', ':tabprevious<CR>', { silent = true })
 
 if vim.fn.has("mac") == 1 then
-    vim.keymap.set("n", "gx", ':call jobstart(["open", expand("<cfile>")], {"detach": v:true})<CR>', {})
+  vim.keymap.set("n", "gx", ':call jobstart(["open", expand("<cfile>")], {"detach": v:true})<CR>', {})
 elseif vim.fn.has("unix") == 1 then
-    vim.keymap.set("n", "gx", ':call jobstart(["xdg-open", expand("<cfile>")], {"detach": v:true})<CR>', {})
+  vim.keymap.set("n", "gx", ':call jobstart(["xdg-open", expand("<cfile>")], {"detach": v:true})<CR>', {})
 else
-    vim.keymap.set("n", "gx", function() vim.cmd(':!start firefox ' .. vim.fn.expand("<cfile>")) end, { silent = true })
+  vim.keymap.set("n", "gx", function() vim.cmd(':!start firefox ' .. vim.fn.expand("<cfile>")) end, { silent = true })
 end
