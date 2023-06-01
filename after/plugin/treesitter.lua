@@ -7,6 +7,7 @@ require 'nvim-treesitter.configs'.setup {
         "cmake",
         "cpp",
         "css",
+        "comment",
         "dart",
         "gitcommit",
         "gitignore",
