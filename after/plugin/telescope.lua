@@ -69,7 +69,7 @@ require('telescope').load_extension('fzf')
 
 local function on_nvim_open(data)
     if data.file == '' or data.file == nil then
-        require('telescope').extensions.projects.projects({})
+        -- require('telescope').extensions.projects.projects({})
         return
     end
 
