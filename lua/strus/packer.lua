@@ -158,6 +158,7 @@ return require('packer').startup(function(use)
     })
     use "tpope/vim-fugitive"
     use { "akinsho/toggleterm.nvim", tag = '*' }
+    use "zbirenbaum/copilot.lua"
 
     -- plugin utilities
     use 'tpope/vim-dispatch'
