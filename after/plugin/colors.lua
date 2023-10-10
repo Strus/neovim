@@ -67,7 +67,6 @@ local themes = {
     everforest,
     function() vim.cmd.colorscheme("carbonfox") end,
     function() vim.cmd.colorscheme("nordfox") end,
-    function() vim.cmd.colorscheme("gruvbox") end,
     function() vim.cmd.colorscheme("kanagawa-dragon") end,
 }
 
