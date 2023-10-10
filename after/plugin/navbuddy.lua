@@ -1,9 +1,9 @@
 local navbuddy = require("nvim-navbuddy")
 
 navbuddy.setup {
-    lsp = {
-        auto_attach = true,
-    },
+  lsp = {
+    auto_attach = true,
+  },
 }
 
-vim.keymap.set('n', '<leader>fs', ':Navbuddy<CR>', { silent = true})
+vim.keymap.set('n', '<leader>fs', ':Navbuddy<CR>', { silent = true })
