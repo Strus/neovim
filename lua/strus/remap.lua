@@ -122,6 +122,9 @@ vim.keymap.set('n', '<leader>rr', ':%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left
 vim.keymap.set('v', '<leader>rr', 'y:%s/\\<<C-r>"\\>/<C-r>"/gI<Left><Left><Left>')
 vim.keymap.set('n', '<leader>x', '<cmd>!chmod +x %<CR>', { silent = true })
 
+vim.keymap.set('n', '<leader>fn', ':cn<CR>', { silent = true })
+vim.keymap.set('n', '<leader>fN', ':cp<CR>', { silent = true })
+
 vim.keymap.set('n', '<leader>/', ':g/')
 
 vim.keymap.set('n', '<leader>bt', ':tab new<CR>', { silent = true })
