@@ -51,7 +51,6 @@ return require('packer').startup(function(use)
   use 'monsonjeremy/onedark.nvim'
   use 'EdenEast/nightfox.nvim'
   use 'sainnhe/everforest'
-  use 'ellisonleao/gruvbox.nvim'
   use 'rebelot/kanagawa.nvim'
 
   -- code-specific (lsp etc.)
