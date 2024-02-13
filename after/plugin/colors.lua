@@ -55,13 +55,6 @@ local function onedark()
   end
 end
 
-local function everforest()
-  vim.g.everforest_background = 'hard'
-  vim.g.everforest_better_performance = 1
-
-  vim.cmd.colorscheme("everforest")
-end
-
 local themes = {
     onedark,
     everforest,

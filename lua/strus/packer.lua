@@ -50,7 +50,6 @@ return require('packer').startup(function(use)
   -- themes
   use 'monsonjeremy/onedark.nvim'
   use 'EdenEast/nightfox.nvim'
-  use 'sainnhe/everforest'
   use 'rebelot/kanagawa.nvim'
 
   -- code-specific (lsp etc.)
