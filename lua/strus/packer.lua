@@ -20,6 +20,7 @@ return require('packer').startup(function(use)
   use { 'nvim-telescope/telescope-fzf-native.nvim',
     run =
     'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
+  use 'princejoogie/dir-telescope.nvim'
   use 'barrett-ruth/telescope-http.nvim'
   use 'theprimeagen/harpoon'
   use {
