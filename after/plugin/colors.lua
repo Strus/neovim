@@ -63,6 +63,7 @@ local themes = {
     function() vim.cmd.colorscheme("kanagawa-dragon") end,
 }
 
-themes[math.random(#themes)]()
+-- themes[math.random(#themes)]()
+vim.cmd.colorscheme("nordfox")
 
 vim.api.nvim_create_user_command('RandomTheme', themes[math.random(#themes)], {})
