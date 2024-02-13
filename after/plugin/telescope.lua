@@ -12,7 +12,7 @@ require('telescope').setup({
         ['<C-j>'] = require('telescope.actions').cycle_history_next,
         ['<C-k>'] = require('telescope.actions').cycle_history_prev,
       },
-    }
+    },
   },
   pickers = {
     lsp_references = {
@@ -26,28 +26,54 @@ require('telescope').setup({
       }
     },
     buffers = {
-      path_display = { "tail" },
+      path_display = { "smart" },
       layout_strategy = "center",
+      only_cwd = true,
+      sort_mru = true,
+      preview = {
+        hide_on_startup = true,
+      }
+    },
+  },
+  extensions = {
+    marks = {
+      path_display = { "smart" },
+      layout_strategy = "center",
+      only_cwd = true,
+      sort_mru = true,
       preview = {
         hide_on_startup = true,
       }
     }
-  },
+  }
 })
 
 local builtin = require('telescope.builtin')
+require('telescope').load_extension('dir')
+require('dir-telescope').setup({
+  hidden = true,
+  no_ignore = false,
+  show_preview = true,
+})
 
 vim.keymap.set('n', '<leader>fg', builtin.git_files, {})
 vim.keymap.set('n', '<leader>gc', builtin.git_branches, {})
-vim.keymap.set('n', '<leader>fF', ':lua require("telescope.builtin").find_files({hidden=true})<CR>', { silent = true })
-vim.keymap.set('n', '<leader>ff',
-  ':lua require("telescope.builtin").find_files({hidden=true, glob_pattern="!*test*"})<CR>', { silent = true })
-vim.keymap.set('n', '<leader>fT', builtin.live_grep, {})
-vim.keymap.set('n', '<leader>ft', ':lua require("telescope.builtin").live_grep({glob_pattern="!*test*"})<CR>',
+vim.keymap.set('n', '<leader>fF',
+  ':lua require("telescope.builtin").find_files({hidden=true, glob_pattern="!*{submodules,x64}*"})<CR>',
   { silent = true })
+vim.keymap.set('n', '<leader>ff',
+  ':lua require("telescope.builtin").find_files({hidden=true, glob_pattern="!*{test,submodules,x64}*"})<CR>',
+  { silent = true })
+-- vim.keymap.set('n', '<leader>fT', ':lua require("telescope.builtin").live_grep({glob_pattern="!*{submodules,x64}*"})<CR>', { silent = true })
+-- vim.keymap.set('n', '<leader>ft', ':lua require("telescope.builtin").live_grep({glob_pattern="!*{test,submodules,x64}*"})<CR>', { silent = true })
+vim.keymap.set('n', '<leader>fG', ':lua require("telescope.builtin").live_grep({glob_pattern="!*{submodules,x64}*"})<CR>',
+  { silent = true })
+vim.keymap.set('n', '<leader>fg',
+  ':lua require("telescope.builtin").live_grep({glob_pattern="!*{test,submodules,x64}*"})<CR>', { silent = true })
+vim.keymap.set('n', '<leader>fi', ":Telescope dir live_grep<CR>", { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>fr', builtin.lsp_references, {})
 vim.keymap.set('n', '<leader>fd', builtin.lsp_definitions, {})
-vim.keymap.set('n', '<leader>fi', builtin.lsp_implementations, {})
+-- vim.keymap.set('n', '<leader>fi', builtin.lsp_implementations, {})
 -- vim.keymap.set('n', '<leader>fs', builtin.lsp_workspace_symbols, {})
 vim.keymap.set('n', '<leader>fe', builtin.diagnostics, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
@@ -68,10 +94,10 @@ vim.cmd("autocmd User TelescopePreviewerLoaded setlocal wrap")
 require('telescope').load_extension('fzf')
 
 local function on_nvim_open(data)
-    if data.file == '' or data.file == nil then
-        -- require('telescope').extensions.projects.projects({})
-        return
-    end
+  if data.file == '' or data.file == nil then
+    -- require('telescope').extensions.projects.projects({})
+    return
+  end
 
   local is_directory = vim.fn.isdirectory(data.file) == 1
   if is_directory then
@@ -82,3 +108,6 @@ local function on_nvim_open(data)
 end
 
 vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = on_nvim_open })
+
+require("telescope").load_extension('harpoon')
+vim.keymap.set("n", "<leader>fh", ":Telescope harpoon marks<CR>")
