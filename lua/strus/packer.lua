@@ -81,7 +81,7 @@ return require('packer').startup(function(use)
     }
   }
   use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } }
-  use 'j-hui/fidget.nvim'
+  use { 'j-hui/fidget.nvim', tag = 'legacy' }
   use { 'akinsho/flutter-tools.nvim', requires = 'nvim-lua/plenary.nvim' }
   use { 'simrat39/rust-tools.nvim' }
   use 'nvimtools/none-ls.nvim'
