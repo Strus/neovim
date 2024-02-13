@@ -37,7 +37,7 @@ function! s:SetTabWinCount()
 	autocmd!
 	autocmd WinEnter * call s:SetWinNr()
 	autocmd TabEnter * call s:SetTabNr()
-	autocmd WinLeave * let t:lastwin = w:winnr
+	autocmd WinLeave * let t:lastwin = exists("w:winnr") ? w:winnr : 0
 	autocmd TabLeave * let g:lasttab = t:tabnr
 	augroup end
 
