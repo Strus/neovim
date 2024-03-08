@@ -3,6 +3,12 @@ require('telescope').setup({
     path_display = { "smart" },
     layout_strategy = "vertical",
     dynamic_preview_title = true,
+    show_preview = true,
+    layout_config = {
+      vertical = {
+        preview_cutoff = 0,
+      },
+    },
     mappings = {
       n = {
         ['<C-x>'] = require('telescope.actions').delete_buffer,
@@ -79,10 +85,10 @@ vim.keymap.set('n', '<leader>fe', builtin.diagnostics, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fc', builtin.commands, {})
 vim.keymap.set('n', '<leader>fk', builtin.keymaps, {})
-vim.keymap.set('n', '<C-f>', builtin.grep_string, {})
-vim.keymap.set('n', '<leader><C-f>', function()
-  builtin.grep_string({ search = vim.fn.input("Find in files: ") });
-end)
+-- vim.keymap.set('n', '<C-f>', builtin.grep_string, {})
+-- vim.keymap.set('n', '<leader><C-f>', function()
+-- builtin.grep_string({ search = vim.fn.input("Find in files: ") });
+-- end)
 vim.keymap.set('n', '<leader><Tab>', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fo', builtin.oldfiles, {})
 
