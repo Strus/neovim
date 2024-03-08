@@ -56,14 +56,12 @@ local function onedark()
 end
 
 local themes = {
-    onedark,
-    everforest,
-    function() vim.cmd.colorscheme("carbonfox") end,
-    function() vim.cmd.colorscheme("nordfox") end,
-    function() vim.cmd.colorscheme("kanagawa-dragon") end,
+  onedark,
+  function() vim.cmd.colorscheme("carbonfox") end,
+  function() vim.cmd.colorscheme("nordfox") end,
 }
 
--- themes[math.random(#themes)]()
 vim.cmd.colorscheme("nordfox")
 
-vim.api.nvim_create_user_command('RandomTheme', themes[math.random(#themes)], {})
+-- themes[math.random(#themes)]()
+-- vim.api.nvim_create_user_command('RandomTheme', themes[math.random(#themes)], {})
