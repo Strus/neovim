@@ -42,12 +42,13 @@ vim.opt.colorcolumn = '120'
 vim.opt.wildmenu = true
 
 vim.opt.splitbelow = true
+vim.opt.splitright = true
 
 vim.opt.autoread = true
 vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
   pattern = "*",
   callback = function()
-    vim.cmd("checktime")
+    pcall(vim.cmd, "checktime")
   end
 })
 vim.api.nvim_create_autocmd("FileChangedShellPost", {
@@ -66,7 +67,7 @@ vim.api.nvim_create_user_command(
     vim.cmd.cfdo(cfdo_args)
   end,
   {
-      nargs = '?',
+    nargs = '?',
   }
 )
 
