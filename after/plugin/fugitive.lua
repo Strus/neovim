@@ -48,11 +48,9 @@ end
 -- vim.keymap.set('n', '<leader>gb', function() M.openBlame() end, { silent = true })
 -- vim.keymap.set('n', '<leader>gd', function() M.openDiff(false) end, { silent = true })
 
-vim.keymap.set('n', '<leader>gh', ':Git log --pretty=format:"%Cred%h%Creset %ad | %s [%an]" --date=short -- %<CR>',
-  { silent = true })
+-- vim.keymap.set('n', '<leader>gh', ':Git log --pretty=format:"%Cred%h%Creset %ad | %s [%an]" --date=short -- %<CR>', { silent = true })
 vim.keymap.set('n', '<leader>gH', ':Git log -- %<CR>', { silent = true })
-vim.keymap.set('n', '<leader>gl', ':Git log --pretty=format:"%Cred%h%Creset %ad | %s [%an]" --date=short<CR>',
-  { silent = true })
+-- vim.keymap.set('n', '<leader>gl', ':Git log --pretty=format:"%Cred%h%Creset %ad | %s [%an]" --date=short<CR>', { silent = true })
 vim.keymap.set('n', '<leader>gL', ':Git log<CR>', { silent = true })
 vim.keymap.set('n', '<leader>gb', ':Git blame --date=short<CR>', { silent = true })
 vim.keymap.set('n', '<leader>gp', ':Git pull --recurse-submodules<CR>', { silent = true })
