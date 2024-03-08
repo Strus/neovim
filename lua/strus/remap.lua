@@ -114,7 +114,8 @@ vim.keymap.set('n', 'n', 'nzzzv')
 vim.keymap.set('n', 'N', 'Nzzzv')
 
 vim.keymap.set('n', 'Q', ':q')
-vim.keymap.set('n', 'q:', ':q')
+vim.keymap.set('n', '<leader>:', 'q:')
+-- vim.keymap.set('n', 'q:', ':q')
 vim.keymap.set('n', '<leader>q', ':close<CR>', { silent = true })
 vim.keymap.set('n', '<leader>w', ':wa<CR>', { silent = true })
 
@@ -130,6 +131,7 @@ vim.keymap.set('n', '<leader>/', ':g/')
 vim.keymap.set('n', '<leader>bt', ':tab new<CR>', { silent = true })
 vim.keymap.set('n', '<leader>bl', ':tabnext<CR>', { silent = true })
 vim.keymap.set('n', '<leader>bh', ':tabprevious<CR>', { silent = true })
+vim.keymap.set('n', '<leader>bq', ':tabclose<CR>', { silent = true })
 
 if vim.fn.has("mac") == 1 then
   vim.keymap.set("n", "gx", ':call jobstart(["open", expand("<cfile>")], {"detach": v:true})<CR>', {})
