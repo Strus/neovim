@@ -45,7 +45,6 @@ return require('packer').startup(function(use)
   -- themes
   use 'monsonjeremy/onedark.nvim'
   use 'EdenEast/nightfox.nvim'
-  use 'rebelot/kanagawa.nvim'
 
   -- code-specific (lsp etc.)
   use {
@@ -76,7 +75,6 @@ return require('packer').startup(function(use)
   }
   use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } }
   use { 'j-hui/fidget.nvim', tag = 'legacy' }
-  use { 'akinsho/flutter-tools.nvim', requires = 'nvim-lua/plenary.nvim' }
   use { 'simrat39/rust-tools.nvim' }
   use 'nvimtools/none-ls.nvim'
   use 'rust-lang/rust.vim'
@@ -88,7 +86,6 @@ return require('packer').startup(function(use)
   -- ui improvements
   use { 'fgheng/winbar.nvim' }
   use { 'petertriho/nvim-scrollbar' }
-  use { 'shortcuts/no-neck-pain.nvim', tag = '*' }
   use 'kevinhwang91/nvim-bqf'
   use 'nvim-lualine/lualine.nvim'
   use({

@@ -1,5 +1,4 @@
 local cmp = require('cmp')
-local flutter = require('flutter-tools')
 local lsp = require('lsp-zero')
 local luasnip = require('luasnip')
 local rt = require("rust-tools")
@@ -115,12 +114,6 @@ vim.api.nvim_create_autocmd("CursorHold", {
     vim.diagnostic.open_float(nil, opts)
   end
 })
-
-
-flutter.setup({
-  on_attach = setLspMappings(bufnr, "lua vim.lsp.buf.format()", "FlutterVisualDebug")
-})
-
 
 local codelldb_path = vim.fn.expand('~/.local/share/nvim/mason/bin/codelldb')
 local liblldb_path = vim.fn.expand('~/.local/share/nvim/mason/packages/codelldb/extension/lldb/lib/liblldb.dylib')
