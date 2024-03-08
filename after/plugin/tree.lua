@@ -1,8 +1,8 @@
 local tree = require('nvim-tree')
 local tree_api = require('nvim-tree.api')
 
-local HEIGHT_RATIO = 0.6
-local WIDTH_RATIO = 0.5
+local HEIGHT_RATIO = 0.8
+local WIDTH_RATIO = 0.8
 
 local function my_on_attach(bufnr)
   local function opts(desc)
@@ -21,6 +21,9 @@ end
 
 tree.setup({
   on_attach = my_on_attach,
+  renderer = {
+    indent_width = 4,
+  },
   view = {
     float = {
       enable = true,
@@ -33,7 +36,7 @@ tree.setup({
         local window_h_int = math.floor(window_h)
         local center_x = (screen_w - window_w) / 2
         local center_y = ((vim.opt.lines:get() - window_h) / 2)
-                         - vim.opt.cmdheight:get()
+            - vim.opt.cmdheight:get()
         return {
           border = 'rounded',
           relative = 'editor',
@@ -42,7 +45,7 @@ tree.setup({
           width = window_w_int,
           height = window_h_int,
         }
-        end,
+      end,
     },
     width = function()
       return math.floor(vim.opt.columns:get() * WIDTH_RATIO)
@@ -53,6 +56,9 @@ tree.setup({
   },
   hijack_directories = {
     enable = false,
+  },
+  filters = {
+    git_ignored = false,
   },
 })
 
