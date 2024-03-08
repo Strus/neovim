@@ -82,6 +82,7 @@ return require('packer').startup(function(use)
   use 'Vimjas/vim-python-pep8-indent'
   use 'p00f/clangd_extensions.nvim'
   use 'google/vim-jsonnet'
+  use 'echasnovski/mini.trailspace'
 
   -- ui improvements
   use { 'fgheng/winbar.nvim' }
