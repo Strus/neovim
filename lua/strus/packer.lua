@@ -33,12 +33,6 @@ return require('packer').startup(function(use)
   }
   use 'nvim-tree/nvim-tree.lua'
   use {
-    'ggandor/leap.nvim',
-    config = function()
-      require('leap').add_default_mappings()
-    end,
-  }
-  use {
     "folke/trouble.nvim",
     config = function()
       require("trouble").setup {
