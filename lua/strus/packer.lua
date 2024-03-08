@@ -158,6 +158,8 @@ return require('packer').startup(function(use)
     end
   })
   use "tpope/vim-fugitive"
+  use "NeogitOrg/neogit"
+  use "sindrets/diffview.nvim"
   use { "akinsho/toggleterm.nvim", tag = '*' }
   use "zbirenbaum/copilot.lua"
 
