@@ -74,7 +74,7 @@ return require('packer').startup(function(use)
     }
   }
   use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } }
-  use { 'j-hui/fidget.nvim', tag = 'legacy' }
+  use { 'j-hui/fidget.nvim', tag = 'v1.4.0' }
   use { 'simrat39/rust-tools.nvim' }
   use 'nvimtools/none-ls.nvim'
   use 'rust-lang/rust.vim'
