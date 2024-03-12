@@ -148,6 +148,7 @@ return require('packer').startup(function(use)
   use 'airblade/vim-rooter'
 
   -- misc
+  use { 'gelguy/wilder.nvim' }
   use 'wakatime/vim-wakatime'
   use 'mbbill/undotree'
   use({
