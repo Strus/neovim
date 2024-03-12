@@ -61,7 +61,11 @@ local themes = {
   function() vim.cmd.colorscheme("nordfox") end,
 }
 
-vim.cmd.colorscheme("nordfox")
+require('onedark').setup {
+  style = 'cool'
+}
+require('onedark').load()
+vim.cmd.colorscheme("onedark")
 
 -- themes[math.random(#themes)]()
 -- vim.api.nvim_create_user_command('RandomTheme', themes[math.random(#themes)], {})
