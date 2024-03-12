@@ -28,8 +28,17 @@ function _G.toggleQuickfix()
   end
 end
 
-vim.cmd('let test#strategy = "dispatch"')
-vim.cmd('let g:test#neovim#start_normal = 1')
+vim.cmd [[
+  function! CompileStrategy(cmd)
+    Compile a:cmd
+  endfunction
+
+  let g:test#custom_strategies = {'compile': function('CompileStrategy')}
+  let g:test#strategy = 'compile'
+  " let g:test#strategy = 'dispatch'
+  let g:test#neovim#start_normal = 1
+]]
+
 
 vim.keymap.set("n", "<leader>to", ":lua showFileInUpperSplit()<CR>", { silent = true })
 vim.keymap.set("n", "<leader>tf", ":TestFile<CR>", { silent = true })
