@@ -4,4 +4,5 @@ require("compile-mode").setup({
   default_command = "",
 })
 
-vim.keymap.set('n', "<leader>cc", ":Compile<CR>")
+vim.keymap.set('n', "<leader>cC", ":Compile<CR>")
+vim.keymap.set('n', "<leader>cc", ":Recompile<CR>")
