@@ -23,7 +23,7 @@ local function setLspMappings(bufnr, format_keymap_cmd, debug_keymap_cmd)
 
   local format_group = vim.api.nvim_create_augroup("LspFormatOnSave", { clear = true })
   vim.api.nvim_create_autocmd("BufWritePre", {
-    pattern = '*.rs,*.lua,*.c,*.cpp,*.h,*.hpp,*.py,*.ts,*.js,*.tsx,*.jsx,*.json',
+    pattern = '*.rs,*.lua,*.c,*.cpp,*.h,*.hpp,*.py,*.json',
     callback = function()
       vim.lsp.buf.format({ async = false })
       MiniTrailspace.trim()
@@ -73,7 +73,7 @@ local cmp_config = lsp.defaults.cmp_config({
   },
   mapping = cmp.mapping.preset.insert {
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    -- ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<CR>'] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Insert,
