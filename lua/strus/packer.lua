@@ -43,7 +43,8 @@ return require('packer').startup(function(use)
   use 'RRethy/vim-illuminate'
 
   -- themes
-  use 'monsonjeremy/onedark.nvim'
+  use 'navarasu/onedark.nvim'
+  -- use 'monsonjeremy/onedark.nvim'
   use 'EdenEast/nightfox.nvim'
 
   -- code-specific (lsp etc.)
