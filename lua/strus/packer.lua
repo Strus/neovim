@@ -114,6 +114,7 @@ return require('packer').startup(function(use)
       "nvim-neotest/neotest-python",
     }
   }
+  use { "ej-shafran/compile-mode.nvim", tag = "latest" }
 
   -- editing
   use 'terrortylor/nvim-comment'
