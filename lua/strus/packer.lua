@@ -165,7 +165,8 @@ return require('packer').startup(function(use)
   use "NeogitOrg/neogit"
   use "sindrets/diffview.nvim"
   use { "akinsho/toggleterm.nvim", tag = '*' }
-  use "zbirenbaum/copilot.lua"
+  use "github/copilot.vim"
+  use "CopilotC-Nvim/CopilotChat.nvim"
 
   -- plugin utilities
   use 'tpope/vim-dispatch'
