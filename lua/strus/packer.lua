@@ -172,4 +172,5 @@ return require('packer').startup(function(use)
   use 'tpope/vim-dispatch'
   use 'nvim-tree/nvim-web-devicons'
   use 'Shougo/denite.nvim'
+  use { "m00qek/baleia.nvim", tag = "v1.3.0" }
 end)
