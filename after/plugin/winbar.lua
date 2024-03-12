@@ -1,1 +1,6 @@
-require('winbar').setup({ enabled = true })
+require('winbar').setup({
+  enabled = true,
+  exclude_filetype = {
+    '',
+  }
+})
