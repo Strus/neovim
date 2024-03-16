@@ -15,7 +15,6 @@ return require('packer').startup(function(use)
   -- navigation
   use {
     'nvim-telescope/telescope.nvim', branch = '0.1.x',
-    requires = { { 'nvim-lua/plenary.nvim' } }
   }
   use { 'nvim-telescope/telescope-fzf-native.nvim',
     run =
@@ -24,19 +23,19 @@ return require('packer').startup(function(use)
   use 'barrett-ruth/telescope-http.nvim'
   use 'theprimeagen/harpoon'
   use {
-    "SmiteshP/nvim-navbuddy",
+    'SmiteshP/nvim-navbuddy',
     requires = {
-      "neovim/nvim-lspconfig",
-      "SmiteshP/nvim-navic",
-      "MunifTanjim/nui.nvim"
+      'neovim/nvim-lspconfig',
+      'SmiteshP/nvim-navic',
+      'MunifTanjim/nui.nvim'
     }
   }
   use 'nvim-tree/nvim-tree.lua'
   use {
-    "folke/trouble.nvim",
+    'folke/trouble.nvim',
     config = function()
-      require("trouble").setup {
-        mode = "document_diagnostics"
+      require('trouble').setup {
+        mode = 'document_diagnostics'
       }
     end
   }
@@ -74,9 +73,9 @@ return require('packer').startup(function(use)
       { 'rafamadriz/friendly-snippets' }, -- Optional
     }
   }
-  use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } }
+  use { 'rcarriga/nvim-dap-ui', requires = { 'mfussenegger/nvim-dap' } }
   use { 'j-hui/fidget.nvim', tag = 'v1.4.0' }
-  use { 'simrat39/rust-tools.nvim' }
+  use 'simrat39/rust-tools.nvim'
   use 'nvimtools/none-ls.nvim'
   use 'rust-lang/rust.vim'
   use 'mfussenegger/nvim-dap-python'
@@ -86,91 +85,80 @@ return require('packer').startup(function(use)
   use 'echasnovski/mini.trailspace'
 
   -- ui improvements
-  use { 'fgheng/winbar.nvim' }
-  use { 'petertriho/nvim-scrollbar' }
+  use 'fgheng/winbar.nvim'
+  use 'petertriho/nvim-scrollbar'
   use 'kevinhwang91/nvim-bqf'
   use 'nvim-lualine/lualine.nvim'
-  use({
-    "luukvbaal/statuscol.nvim",
-  })
+  use 'luukvbaal/statuscol.nvim'
   use {
     'lewis6991/gitsigns.nvim',
     config = function()
       require('gitsigns').setup()
-      require("scrollbar.handlers.gitsigns").setup()
+      require('scrollbar.handlers.gitsigns').setup()
     end
   }
-  use { 'weilbith/nvim-code-action-menu', cmd = "CodeActionMenu" }
+  use { 'weilbith/nvim-code-action-menu', cmd = 'CodeActionMenu' }
 
   -- code testing
   use 'vim-test/vim-test'
   use 'okcompute/vim-nose'
   use {
-    "nvim-neotest/neotest",
+    'nvim-neotest/neotest',
     requires = {
-      "nvim-lua/plenary.nvim",
-      "nvim-treesitter/nvim-treesitter",
-      "antoinemadec/FixCursorHold.nvim",
-      "nvim-neotest/neotest-python",
+      'antoinemadec/FixCursorHold.nvim',
+      'nvim-neotest/neotest-python',
     }
   }
-  use { "ej-shafran/compile-mode.nvim", tag = "latest" }
+  use { 'ej-shafran/compile-mode.nvim', tag = 'latest' }
 
   -- editing
   use 'terrortylor/nvim-comment'
   use {
-    "windwp/nvim-autopairs",
-    config = function() require("nvim-autopairs").setup {} end
-  }
-  use {
-    "danymat/neogen",
-    requires = "nvim-treesitter/nvim-treesitter",
-    tag = "*"
-  }
-  use({
-    "kylechui/nvim-surround",
-    tag = "*",
+    'windwp/nvim-autopairs',
     config = function()
-      require("nvim-surround").setup()
+      require('nvim-autopairs').setup()
+    end
+  }
+  use { 'danymat/neogen', tag = '*' }
+  use({
+    'kylechui/nvim-surround',
+    tag = '*',
+    config = function()
+      require('nvim-surround').setup()
     end
   })
-  use {
-    "ThePrimeagen/refactoring.nvim",
-    requires = {
-      { "nvim-lua/plenary.nvim" },
-      { "nvim-treesitter/nvim-treesitter" }
-    }
-  }
+  use 'ThePrimeagen/refactoring.nvim'
 
   -- project management
-  use { "ahmedkhalf/project.nvim" }
+  use 'ahmedkhalf/project.nvim'
   use 'jandamm/vim-projplugin'
   use 'airblade/vim-rooter'
 
   -- misc
-  use { 'gelguy/wilder.nvim' }
+  use 'gelguy/wilder.nvim'
   use 'wakatime/vim-wakatime'
   use 'mbbill/undotree'
   use({
-    "iamcco/markdown-preview.nvim",
-    run = function() vim.fn["mkdp#util#install"]() end,
+    'iamcco/markdown-preview.nvim',
+    run = function() vim.fn['mkdp#util#install']() end,
   })
   use({
     'asiryk/auto-hlsearch.nvim',
     config = function()
-      require("auto-hlsearch").setup()
+      require('auto-hlsearch').setup()
     end
   })
-  use "tpope/vim-fugitive"
-  use "NeogitOrg/neogit"
-  use "sindrets/diffview.nvim"
-  use { "akinsho/toggleterm.nvim", tag = '*' }
-  use "github/copilot.vim"
-  use "CopilotC-Nvim/CopilotChat.nvim"
+  use 'tpope/vim-fugitive'
+  use 'NeogitOrg/neogit'
+  use 'sindrets/diffview.nvim'
+  use { 'akinsho/toggleterm.nvim', tag = '*' }
+  use 'github/copilot.vim'
+  use 'CopilotC-Nvim/CopilotChat.nvim'
 
   -- plugin utilities
+  use 'nvim-lua/plenary.nvim'
   use 'tpope/vim-dispatch'
   use 'nvim-tree/nvim-web-devicons'
   use 'Shougo/denite.nvim'
-  use { "m00qek/baleia.nvim", tag = "v1.3.0" }
+  use { 'm00qek/baleia.nvim', tag = 'v1.3.0' }
 end)
