@@ -4,5 +4,5 @@ require('strus.packer')
 
 local timer = vim.loop.new_timer()
 timer:start(5 * 60 * 1000, 5 * 60 * 1000, vim.schedule_wrap(function()
-  vim.cmd("noautocmd wa")
+  vim.cmd('noautocmd wa')
 end))

@@ -67,8 +67,8 @@ vim.keymap.set("n", "<C-h>", ":set hlsearch! hlsearch?<CR>", { silent = true })
 vim.keymap.set("n", "<leader>z", ":NoNeckPain<CR>", { silent = true })
 
 -- switch back/front jumps with each other
-vim.keymap.set('n', '<C-i>', '<C-o>')
-vim.keymap.set('n', '<C-o>', '<C-i>')
+vim.keymap.set('n', '<C-i>', '<C-o>', { remap = false })
+vim.keymap.set('n', '<C-o>', '<C-i>', { remap = false })
 
 -- enter is G in Normal mode -> useful for navigating between lines by number
 vim.keymap.set('n', '<CR>', 'G')
@@ -99,7 +99,7 @@ vim.keymap.set('n', '<leader>ln', ':lua toggleLineNumbers()<CR>', { silent = tru
 vim.keymap.set('n', '<leader>la', ':lua toggleSignColumnAndLineNumbers()<CR>', { silent = true })
 vim.keymap.set('n', '<leader>lw', ':lua toggleWrap()<CR>', { silent = true })
 vim.keymap.set('n', '<leader>lh', ':lua toggleCursorline()<CR>', { silent = true })
-vim.keymap.set('n', '<leader>cc', ':lua toggleQuickFix()<CR>', { silent = true })
+-- vim.keymap.set('n', '<leader>cc', ':lua toggleQuickFix()<CR>', { silent = true })
 vim.keymap.set('n', '<C-l>', ':lua toggleQuickFix()<CR>', { silent = true })
 
 vim.keymap.set('v', 'J', ':m \'>+1<CR>gv=gv', { silent = true })
