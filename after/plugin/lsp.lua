@@ -1,7 +1,6 @@
 local cmp = require('cmp')
 local lsp = require('lsp-zero')
 local luasnip = require('luasnip')
-local rt = require("rust-tools")
 
 local function setLspMappings(bufnr, format_keymap_cmd, debug_keymap_cmd)
   local opts = { buffer = bufnr, remap = false }
@@ -64,6 +63,12 @@ vim.keymap.set('n', '<C-e>', ":lua toggleInlineDiagnostics()<CR>", { silent = tr
 
 require('fidget').setup {}
 
+local has_words_before = function()
+  unpack = unpack or table.unpack
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+
 local cmp_config = lsp.defaults.cmp_config({
   sources = {
     { name = 'path' },
@@ -84,6 +89,8 @@ local cmp_config = lsp.defaults.cmp_config({
         cmp.select_next_item()
       elseif luasnip.expand_or_jumpable() then
         luasnip.expand_or_jump()
+      elseif has_words_before() then
+        cmp.complete()
       else
         fallback()
       end
@@ -116,28 +123,6 @@ vim.api.nvim_create_autocmd("CursorHold", {
     vim.diagnostic.open_float(nil, opts)
   end
 })
-
-local codelldb_path = vim.fn.expand('~/.local/share/nvim/mason/bin/codelldb')
-local liblldb_path = vim.fn.expand('~/.local/share/nvim/mason/packages/codelldb/extension/lldb/lib/liblldb.dylib')
-local opts = {
-  server = {
-    on_attach = setLspMappings(bufnr, "RustFmt", "RustDebuggables"),
-    settings = {
-      ["rust-analyzer"] = {
-        check = {
-          command = "clippy",
-          extraArgs = { "--all", "--", "-W", "clippy::all" }
-        }
-      }
-    }
-  },
-  dap = {
-    adapter = require('rust-tools.dap').get_codelldb_adapter(
-      codelldb_path, liblldb_path)
-  },
-}
-
-rt.setup(opts)
 
 vim.g.code_action_menu_show_details = false
 vim.g.code_action_menu_show_diff = true
