@@ -181,6 +181,7 @@ return require('packer').startup({
       end
     })
     use 'tpope/vim-fugitive'
+    use "sindrets/diffview.nvim"
     use {
       'NeogitOrg/neogit',
       cmd = 'Neogit',
