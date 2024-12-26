@@ -29,8 +29,8 @@ function _G.toggleQuickfix()
 end
 
 vim.cmd [[
-  function! CompileStrategy(cmd)
-    Compile a:cmd
+  function! CompileStrategy(command)
+    :execute "Compile " . a:command
   endfunction
 
   let g:test#custom_strategies = {'compile': function('CompileStrategy')}
