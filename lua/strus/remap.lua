@@ -80,6 +80,10 @@ vim.keymap.set('i', 'jj', '<Esc>')
 vim.keymap.set('x', '<leader>p', 'p')
 vim.keymap.set('x', 'p', '"_dP')
 
+-- easier copy/paste from system clipboard
+vim.keymap.set('x', '<leader>y', '"+y')
+vim.keymap.set('x', '<leader>p', '"+p')
+
 -- Undo breakpoints
 vim.keymap.set('i', ',', ',<C-g>u')
 vim.keymap.set('i', '.', '.<C-g>u')
@@ -115,7 +119,6 @@ vim.keymap.set('n', 'N', 'Nzzzv')
 
 vim.keymap.set('n', 'Q', ':q')
 vim.keymap.set('n', '<leader>:', 'q:')
--- vim.keymap.set('n', 'q:', ':q')
 vim.keymap.set('n', '<leader>q', ':close<CR>', { silent = true })
 vim.keymap.set('n', '<leader>w', ':wa<CR>', { silent = true })
 
@@ -128,7 +131,7 @@ vim.keymap.set('n', '<leader>fN', ':cp<CR>', { silent = true })
 
 vim.keymap.set('n', '<leader>/', ':g/')
 
-vim.keymap.set('n', '<leader>bt', ':tab new<CR>', { silent = true })
+vim.keymap.set('n', '<leader>bn', ':tab new<CR>', { silent = true })
 vim.keymap.set('n', '<leader>bl', ':tabnext<CR>', { silent = true })
 vim.keymap.set('n', '<leader>bh', ':tabprevious<CR>', { silent = true })
 vim.keymap.set('n', '<leader>bq', ':tabclose<CR>', { silent = true })
