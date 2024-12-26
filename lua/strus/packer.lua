@@ -44,7 +44,6 @@ return require('packer').startup({
     use 'RRethy/vim-illuminate'
 
     -- themes
-    use 'navarasu/onedark.nvim'
     use 'EdenEast/nightfox.nvim'
 
     -- code-specific (lsp etc.)
