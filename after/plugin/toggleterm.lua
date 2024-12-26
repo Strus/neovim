@@ -1,5 +1,0 @@
-vim.keymap.set("t", "<ESC>", "<C-\\><C-N>")
-vim.keymap.set("n", "<M-)>", ":ToggleTerm direction=float<CR>", { silent = true })
-vim.keymap.set("i", "<M-)>", ":ToggleTerm direction=float<CR>", { silent = true })
-vim.keymap.set("n", "<leader>vv", ":ToggleTerm direction=horizontal<CR>", { silent = true })
-vim.keymap.set("i", "<M-0>", ":ToggleTerm direction=vertical<CR>", { silent = true })
