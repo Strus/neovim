@@ -9,6 +9,13 @@ vim.keymap.set('n', '<C-/>', ':CommentToggle<CR>j', { silent = true })
 vim.api.nvim_create_autocmd({ "BufEnter", "BufFilePost" }, {
   pattern = "*.c,*.cpp,*.h,*.hpp",
   callback = function()
-    vim.api.nvim_buf_set_option(0, "commentstring", "// %s")
+    vim.api.nvim_set_option_value("commentstring", "// %s", { buf = 0 })
+  end
+})
+
+vim.api.nvim_create_autocmd({ "BufEnter", "BufFilePost" }, {
+  pattern = "*.sql",
+  callback = function()
+    vim.api.nvim_set_option_value("commentstring", "-- %s", { buf = 0 })
   end
 })
