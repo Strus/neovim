@@ -74,8 +74,13 @@ return require('packer').startup({
         { 'rafamadriz/friendly-snippets' }, -- Optional
       }
     }
-    use { 'rcarriga/nvim-dap-ui', requires = { 'mfussenegger/nvim-dap' } }
-    use { 'j-hui/fidget.nvim', tag = 'v1.4.0' }
+    use { "rcarriga/nvim-dap-ui",
+      requires = {
+        "mfussenegger/nvim-dap",
+        "nvim-neotest/nvim-nio",
+      }
+    }
+    use { 'j-hui/fidget.nvim', tag = 'v1.4.5' }
     use 'rust-lang/rust.vim'
     use {
       'simrat39/rust-tools.nvim',
@@ -162,7 +167,7 @@ return require('packer').startup({
           patterns = {}
         })
       end,
-      key = '<leader>pp',
+      key = '<leader>P',
     }
     use 'jandamm/vim-projplugin'
     use 'airblade/vim-rooter'
@@ -181,7 +186,15 @@ return require('packer').startup({
         require('auto-hlsearch').setup()
       end
     })
-    use 'tpope/vim-fugitive'
+    use {
+      'tpope/vim-fugitive',
+      key = {
+        '<leader>gs',
+        '<leader>gb',
+        '<leader>gL',
+        '<leader>gH',
+      }
+    }
     use "sindrets/diffview.nvim"
     use {
       'NeogitOrg/neogit',
