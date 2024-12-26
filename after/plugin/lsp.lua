@@ -73,8 +73,8 @@ local cmp_config = lsp.defaults.cmp_config({
   sources = {
     { name = 'path' },
     { name = 'nvim_lsp' },
-    -- { name = 'buffer',  keyword_length = 3 },
-    { name = 'luasnip', keyword_length = 3 },
+    { name = 'luasnip',                keyword_length = 3 },
+    { name = 'nvim_lsp_signature_help' },
   },
   mapping = cmp.mapping.preset.insert {
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
