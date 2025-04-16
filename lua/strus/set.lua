@@ -14,6 +14,7 @@ vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.fileformats = "unix,dos"
+vim.opt.shelltemp = false
 
 vim.opt.autoindent = false
 vim.opt.smartindent = false
