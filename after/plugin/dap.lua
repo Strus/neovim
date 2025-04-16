@@ -28,18 +28,18 @@ require("dapui").setup({
   },
 })
 
-dap.listeners.after.event_initialized["dapui_config"] = function()
-  require('onedark').hideInactiveStatusline = false
-  dapui.open()
-end
-dap.listeners.before.event_terminated["dapui_config"] = function()
-  require('onedark').hideInactiveStatusline = true
-  dapui.close()
-end
-dap.listeners.before.event_exited["dapui_config"] = function()
-  require('onedark').hideInactiveStatusline = true
-  dapui.close()
-end
+-- dap.listeners.after.event_initialized["dapui_config"] = function()
+--   require('onedark').hideInactiveStatusline = false
+--   dapui.open()
+-- end
+-- dap.listeners.before.event_terminated["dapui_config"] = function()
+--   require('onedark').hideInactiveStatusline = true
+--   dapui.close()
+-- end
+-- dap.listeners.before.event_exited["dapui_config"] = function()
+--   require('onedark').hideInactiveStatusline = true
+--   dapui.close()
+-- end
 
 vim.api.nvim_set_hl(0, 'DapBreakpoint', { ctermbg = 0, fg = '#993939', bg = '#31353f' })
 vim.api.nvim_set_hl(0, 'DapLogPoint', { ctermbg = 0, fg = '#61afef', bg = '#31353f' })
@@ -63,18 +63,18 @@ vim.keymap.set('n', '<leader>dl', ':lua require("dap").list_breakpoints()<CR>:co
 
 
 dap.adapters.python = {
-    type = 'executable',
-    command = 'python',
-    args = { '-m', 'debugpy.adapter' },
+  type = 'executable',
+  command = 'python',
+  args = { '-m', 'debugpy.adapter' },
 }
 
 dap.configurations.python = {
-    {
-        -- The first three options are required by nvim-dap
-        type = 'python', -- the type here established the link to the adapter definition: `dap.adapters.python`
-        request = 'launch',
-        name = 'Run',
-        -- -- Options below are for debugpy, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for supported options
-        program = vim.fn.expand("%:p"),
-    },
+  {
+    -- The first three options are required by nvim-dap
+    type = 'python',     -- the type here established the link to the adapter definition: `dap.adapters.python`
+    request = 'launch',
+    name = 'Run',
+    -- -- Options below are for debugpy, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for supported options
+    program = vim.fn.expand("%:p"),
+  },
 }

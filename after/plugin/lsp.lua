@@ -1,5 +1,4 @@
 local cmp = require('cmp')
--- local lsp = require('lsp-zero')
 local luasnip = require('luasnip')
 
 local lsp = require('lsp-zero').preset({
@@ -46,8 +45,7 @@ vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
 -- vim.keymap.set('n', '<leader>ca', function() vim.lsp.buf.code_action() end, opts)
-vim.keymap.set('n', '<leader>ca', ':CodeActionMenu<CR>', silentOpts)
-vim.keymap.set('x', '<leader>ca', ':CodeActionMenu<CR>', silentOpts)
+vim.keymap.set({ 'n', 'x' }, '<leader>ca', ':CodeActionMenu<CR>', silentOpts)
 vim.keymap.set('n', '<leader>cr', vim.lsp.buf.rename, opts)
 vim.keymap.set('i', '<C-n>', vim.lsp.buf.signature_help, opts)
 vim.keymap.set('n', 'gh', ':ClangdSwitchSourceHeader<CR>', silentOpts)
