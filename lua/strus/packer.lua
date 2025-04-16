@@ -122,7 +122,9 @@ return require('packer').startup({
     use {
       'lewis6991/gitsigns.nvim',
       config = function()
-        require('gitsigns').setup()
+        require('gitsigns').setup({
+          signcolumn = false,
+        })
         require('scrollbar.handlers.gitsigns').setup()
       end
     }
@@ -216,13 +218,8 @@ return require('packer').startup({
       end
     }
     use "github/copilot.vim"
-    use {
-      "CopilotC-Nvim/CopilotChat.nvim",
-      cmd = { "CopilotChat", "CopilotChatExplain" },
-      config = function()
-        require("CopilotChat").setup()
-      end,
-    }
+    use "olimorris/codecompanion.nvim"
+    use 'echasnovski/mini.nvim'
 
     -- plugin utilities
     use 'nvim-lua/plenary.nvim'
