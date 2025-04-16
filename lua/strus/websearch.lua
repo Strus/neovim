@@ -1,3 +1,5 @@
+utils = require('strus.utils')
+
 local M = {}
 
 function M.normalize_for_url(text)
@@ -41,14 +43,33 @@ vim.api.nvim_create_user_command("SearchCpp", function(opts)
   M.open_url("https://www.google.com/search?q=", opts.args .. " site:cppreference.com")
 end, { nargs = 1 })
 
-vim.keymap.set('n', '<leader>sg', function() vim.cmd('Search ' .. vim.fn.expand("<cword>")) end,
-  { silent = true })
-vim.keymap.set('n', '<leader>sp', function() vim.cmd('SearchPython ' .. vim.fn.expand("<cword>")) end,
-  { silent = true })
-vim.keymap.set('n', '<leader>sc', function() vim.cmd('SearchCpp ' .. vim.fn.expand("<cword>")) end,
-  { silent = true })
+vim.api.nvim_create_user_command("T3Chat", function(opts)
+  M.open_url("https://t3.chat", "")
+end, { nargs = 0 })
+
+vim.api.nvim_create_user_command("GotoJira", function(opts)
+  M.open_url("https://jira.inside-box.net/browse/", opts.args)
+end, { nargs = 1 })
+
+vim.keymap.set({ 'n', 'v' }, '<leader>sg', function()
+  vim.cmd('Search ' .. utils.get_selected_text())
+end, { silent = true })
+
+vim.keymap.set({ 'n', 'v' }, '<leader>sp', function()
+  vim.cmd('SearchPython ' .. utils.get_selected_text())
+end, { silent = true })
+
+vim.keymap.set({ 'n', 'v' }, '<leader>sc', function()
+  vim.cmd('SearchCpp ' .. utils.get_selected_text())
+end, { silent = true })
 vim.keymap.set('n', "<leader>ss", function()
   return ":Search " .. vim.fn.input("Google search: ") .. "<cr>"
 end, { expr = true })
+
+vim.keymap.set({ 'n', 'v' }, '<leader>sj', function()
+  vim.cmd('GotoJira ' .. utils.get_selected_text())
+end, { silent = true })
+
+vim.keymap.set({ 'n', 'v' }, '<leader>sa', ":T3Chat<CR>", { silent = true })
 
 return M
