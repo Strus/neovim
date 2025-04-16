@@ -1,3 +1,5 @@
+utils = require('strus.utils')
+
 require('telescope').setup({
   defaults = {
     path_display = { "smart" },
@@ -70,25 +72,33 @@ vim.keymap.set('n', '<leader>fF',
 vim.keymap.set('n', '<leader>ff',
   ':lua require("telescope.builtin").find_files({hidden=true, glob_pattern="!*{test,submodules,x64}*"})<CR>',
   { silent = true })
--- vim.keymap.set('n', '<leader>fT', ':lua require("telescope.builtin").live_grep({glob_pattern="!*{submodules,x64}*"})<CR>', { silent = true })
--- vim.keymap.set('n', '<leader>ft', ':lua require("telescope.builtin").live_grep({glob_pattern="!*{test,submodules,x64}*"})<CR>', { silent = true })
 vim.keymap.set('n', '<leader>fG', ':lua require("telescope.builtin").live_grep({glob_pattern="!*{submodules,x64}*"})<CR>',
   { silent = true })
 vim.keymap.set('n', '<leader>fg',
   ':lua require("telescope.builtin").live_grep({glob_pattern="!*{test,submodules,x64}*"})<CR>', { silent = true })
+vim.keymap.set('x', '<leader>fw', function()
+    require("telescope.builtin").live_grep({
+      glob_pattern = "!*{test,submodules,x64}*",
+      default_text = utils
+          .get_selected_text()
+    })
+  end,
+  { silent = true })
+vim.keymap.set('x', '<leader>fW', function()
+    require("telescope.builtin").live_grep({
+      glob_pattern = "!*{submodules,x64}*",
+      default_text = utils
+          .get_selected_text()
+    })
+  end,
+  { silent = true })
 vim.keymap.set('n', '<leader>fi', ":Telescope dir live_grep<CR>", { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>fr', builtin.lsp_references, {})
 vim.keymap.set('n', '<leader>fd', builtin.lsp_definitions, {})
--- vim.keymap.set('n', '<leader>fi', builtin.lsp_implementations, {})
--- vim.keymap.set('n', '<leader>fs', builtin.lsp_workspace_symbols, {})
 vim.keymap.set('n', '<leader>fe', builtin.diagnostics, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fc', builtin.commands, {})
 vim.keymap.set('n', '<leader>fk', builtin.keymaps, {})
--- vim.keymap.set('n', '<C-f>', builtin.grep_string, {})
--- vim.keymap.set('n', '<leader><C-f>', function()
--- builtin.grep_string({ search = vim.fn.input("Find in files: ") });
--- end)
 vim.keymap.set('n', '<leader><Tab>', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fo', builtin.oldfiles, {})
 
