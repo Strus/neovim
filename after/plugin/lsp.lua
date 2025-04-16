@@ -120,10 +120,18 @@ local cmp_config = lsp.defaults.cmp_config({
     { name = 'nvim_lsp' },
     { name = 'luasnip',                keyword_length = 3 },
     { name = 'nvim_lsp_signature_help' },
+    { name = 'codecompanion' },
   },
   mapping = cmp.mapping.preset.insert {
+    ['<C-f>'] = cmp.mapping(function(fallback)
+      -- if cmp.visible() then
+      --   vim.fn['copilot#Accept'](fallback)
+      -- else
+      fallback()
+      -- end
+    end, { 'i', 's' }),
     ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-l>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<CR>'] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Insert,
