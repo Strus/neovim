@@ -34,3 +34,18 @@ require("codecompanion").setup({
     end,
   },
 })
+
+vim.api.nvim_create_user_command(
+  'CursorOpen',
+  function()
+    local file_path = vim.fn.expand('%:p')
+    local line_num = vim.fn.line('.')
+    local cmd = string.format('cursor -r --goto "%s:%s"', file_path, line_num)
+    vim.fn.jobstart(cmd, { detach = true })
+  end,
+  {
+    nargs = 0,
+  }
+)
+
+vim.keymap.set({ 'n', 'v' }, '<leader>gc', ':CursorOpen<CR>', { silent = true })
