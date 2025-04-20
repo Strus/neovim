@@ -233,6 +233,7 @@ return require('packer').startup({
     profile = {
       enable = false,
       threshold = 1 -- the amount in ms that a plugin's load time must be over for it to be included in the profile
-    }
+    },
+    max_jobs = 70,
   },
 })
