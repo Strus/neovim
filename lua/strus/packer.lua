@@ -218,7 +218,7 @@ return require('packer').startup({
         })
       end
     }
-    use "github/copilot.vim"
+    use "zbirenbaum/copilot.lua"
     use "olimorris/codecompanion.nvim"
     use 'echasnovski/mini.nvim'
 
