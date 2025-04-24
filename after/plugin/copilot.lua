@@ -1,10 +1,19 @@
-vim.keymap.set('i', '<C-f>', 'copilot#Accept("\\<CR>")', {
-  expr = true,
-  replace_keycodes = false
-})
-vim.g.copilot_no_tab_map = true
+-- vim.keymap.set('i', '<C-f>', 'copilot#Accept("\\<CR>")', {
+--   expr = true,
+--   replace_keycodes = false
+-- })
+-- vim.g.copilot_no_tab_map = true
 -- vim.cmd([[let g:copilot_filetypes = { '*': v:false }]])
 -- vim.keymap.set('i', '<C-a>', '<Plug>(copilot-suggest)')
+require("copilot").setup({
+  suggestion = {
+    auto_trigger = true,
+    keymap = {
+      accept = "<C-f>",
+      -- dismiss = "<C-F>",
+    },
+  },
+})
 
 vim.keymap.set({ 'n', 'v' }, '<leader>ac', ':CodeCompanionChat<CR>', { silent = true })
 vim.keymap.set({ 'n', 'v' }, '<leader>aa', ':CodeCompanion ', { silent = false })
