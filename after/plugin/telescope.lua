@@ -9,6 +9,11 @@ require('telescope').setup({
     layout_config = {
       vertical = {
         preview_cutoff = 0,
+        width = 0.6,
+      },
+      center = {
+        preview_cutoff = 0,
+        width = 0.4,
       },
     },
     mappings = {
