@@ -5,6 +5,11 @@
 -- vim.g.copilot_no_tab_map = true
 -- vim.cmd([[let g:copilot_filetypes = { '*': v:false }]])
 -- vim.keymap.set('i', '<C-a>', '<Plug>(copilot-suggest)')
+local copilot = pcall(require, "copilot") and require("copilot") or nil
+if not copilot then
+  return
+end
+
 require("copilot").setup({
   suggestion = {
     auto_trigger = true,

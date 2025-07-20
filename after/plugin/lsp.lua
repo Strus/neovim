@@ -26,7 +26,7 @@ local function setLspMappings(bufnr, format_keymap_cmd, debug_keymap_cmd)
 
   local format_group = vim.api.nvim_create_augroup("LspFormatOnSave", { clear = true })
   vim.api.nvim_create_autocmd("BufWritePre", {
-    pattern = '*.rs,*.lua,*.c,*.cpp,*.h,*.hpp,*.py,*.json',
+    pattern = '*.rs,*.lua,*.c,*.cpp,*.h,*.hpp,*.py,*.json,*.js,*.jsx,*.ts,*.tsx',
     callback = function()
       vim.lsp.buf.format({ async = false })
       MiniTrailspace.trim()
@@ -53,7 +53,7 @@ vim.keymap.set('n', '<leader>cf', vim.lsp.buf.format, silentOpts)
 
 local format_group = vim.api.nvim_create_augroup("LspFormatOnSave", { clear = true })
 vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = '*.rs,*.lua,*.c,*.cpp,*.h,*.hpp,*.py,*.json',
+  pattern = '*.rs,*.lua,*.c,*.cpp,*.h,*.hpp,*.py,*.json,*.js,*.jsx,*.ts,*.tsx',
   callback = function()
     vim.lsp.buf.format({ async = false })
     MiniTrailspace.trim()
