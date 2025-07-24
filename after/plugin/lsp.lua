@@ -1,7 +1,7 @@
 local cmp = require('cmp')
 local luasnip = require('luasnip')
 
-local lsp = require('lsp-zero').preset({
+local lsp_zero = require('lsp-zero').preset({
   name = 'recommended',
   manage_nvim_cmp = false,
 })
@@ -26,7 +26,7 @@ local function setLspMappings(bufnr, format_keymap_cmd, debug_keymap_cmd)
 
   local format_group = vim.api.nvim_create_augroup("LspFormatOnSave", { clear = true })
   vim.api.nvim_create_autocmd("BufWritePre", {
-    pattern = '*.rs,*.lua,*.c,*.cpp,*.h,*.hpp,*.py,*.json,*.js,*.jsx,*.ts,*.tsx',
+    pattern = '*.rs,*.lua,*.c,*.cpp,*.h,*.hpp,*.py,*.json,*.ts,*.tsx,*.js,*.jsx',
     callback = function()
       vim.lsp.buf.format({ async = false })
       MiniTrailspace.trim()
@@ -53,7 +53,7 @@ vim.keymap.set('n', '<leader>cf', vim.lsp.buf.format, silentOpts)
 
 local format_group = vim.api.nvim_create_augroup("LspFormatOnSave", { clear = true })
 vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = '*.rs,*.lua,*.c,*.cpp,*.h,*.hpp,*.py,*.json,*.js,*.jsx,*.ts,*.tsx',
+  pattern = '*.rs,*.lua,*.c,*.cpp,*.h,*.hpp,*.py,*.json,*.ts,*.tsx,*.js,*.jsx',
   callback = function()
     vim.lsp.buf.format({ async = false })
     MiniTrailspace.trim()
@@ -62,19 +62,19 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   group = format_group,
 })
 
--- lsp.preset({
+-- lsp_zero.preset({
 --   name = 'recommended',
 --   manage_nvim_cmp = false,
 -- })
-lsp.on_attach(
+lsp_zero.on_attach(
   function(client, bufnr)
     setLspMappings(bufnr, "LspZeroFormat", "DapContinue")
   end
 )
 
-lsp.nvim_workspace()
+lsp_zero.nvim_workspace()
 
-lsp.configure('basedpyright', {
+lsp_zero.configure('basedpyright', {
   settings = {
     analysis = {
       diagnosticMode = "workspace",
@@ -85,7 +85,7 @@ lsp.configure('basedpyright', {
 })
 
 -- vim.lsp.set_log_level('debug')
-lsp.setup()
+lsp_zero.setup()
 
 _G.inlineDiagnostics = false
 function _G.toggleInlineDiagnostics()
@@ -109,7 +109,7 @@ local has_words_before = function()
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
-local cmp_config = lsp.defaults.cmp_config({
+local cmp_config = lsp_zero.defaults.cmp_config({
   completion = {
     autocomplete = false,
   },
