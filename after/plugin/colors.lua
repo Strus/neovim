@@ -40,8 +40,9 @@ end
 
 function LightTheme()
   vim.o.background = "light"
-  vim.cmd.colorscheme("everforest")
-  UpdateWeztermTheme("Everforest Light (Gogh)")
+  require('solarized').setup({})
+  vim.cmd.colorscheme('solarized')
+  UpdateWeztermTheme("Solarized Light (Gogh)")
 end
 
 function DarkTheme()

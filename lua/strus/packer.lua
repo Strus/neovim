@@ -46,6 +46,7 @@ return require('packer').startup({
     -- themes
     use 'EdenEast/nightfox.nvim'
     use 'sainnhe/everforest'
+    use 'maxmx03/solarized.nvim'
 
     -- code-specific (lsp etc.)
     use {
