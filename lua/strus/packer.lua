@@ -161,6 +161,7 @@ return require('packer').startup({
       end
     })
     use 'ThePrimeagen/refactoring.nvim'
+    use 'MagicDuck/grug-far.nvim'
 
     -- project management
     use {
@@ -235,6 +236,6 @@ return require('packer').startup({
       enable = false,
       threshold = 1 -- the amount in ms that a plugin's load time must be over for it to be included in the profile
     },
-    max_jobs = 70,
+    max_jobs = 16,
   },
 })
