@@ -1,10 +1,3 @@
--- vim.keymap.set('i', '<C-f>', 'copilot#Accept("\\<CR>")', {
---   expr = true,
---   replace_keycodes = false
--- })
--- vim.g.copilot_no_tab_map = true
--- vim.cmd([[let g:copilot_filetypes = { '*': v:false }]])
--- vim.keymap.set('i', '<C-a>', '<Plug>(copilot-suggest)')
 local copilot = pcall(require, "copilot") and require("copilot") or nil
 if not copilot then
   return
@@ -55,6 +48,18 @@ vim.api.nvim_create_user_command(
     local file_path = vim.fn.expand('%:p')
     local line_num = vim.fn.line('.')
     local cmd = string.format('cursor -r --goto "%s:%s"', file_path, line_num)
+    vim.fn.jobstart(cmd, { detach = true })
+  end,
+  {
+    nargs = 0,
+  }
+)
+
+vim.api.nvim_create_user_command(
+  'CursorOpenWorkspace',
+  function()
+    local workspace_path = vim.fn.getcwd()
+    local cmd = string.format('cursor -r "%s"', workspace_path)
     vim.fn.jobstart(cmd, { detach = true })
   end,
   {
