@@ -10,6 +10,7 @@ require("copilot").setup({
       accept = "<C-f>",
       -- dismiss = "<C-F>",
     },
+    sh = false,
   },
 })
 
