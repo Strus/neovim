@@ -57,6 +57,9 @@ function ToggleTheme()
   else
     DarkTheme()
   end
+  vim.fn.system(
+    [[osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to not dark mode']]
+  )
 end
 
 function SyncTheme()
