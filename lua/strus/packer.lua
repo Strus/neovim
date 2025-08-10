@@ -114,6 +114,7 @@ return require('packer').startup({
     use 'p00f/clangd_extensions.nvim'
     use 'google/vim-jsonnet'
     use 'echasnovski/mini.trailspace'
+    use 'tpope/vim-rails'
 
     -- ui improvements
     use 'fgheng/winbar.nvim'
