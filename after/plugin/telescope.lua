@@ -72,26 +72,43 @@ require('dir-telescope').setup({
 vim.keymap.set('n', '<leader>fg', builtin.git_files, {})
 vim.keymap.set('n', '<leader>gc', builtin.git_branches, {})
 vim.keymap.set('n', '<leader>fF',
-  ':lua require("telescope.builtin").find_files({hidden=true, glob_pattern="!*{submodules,x64}*"})<CR>',
+  ':lua require("telescope.builtin").find_files({hidden=true})<CR>',
   { silent = true })
 vim.keymap.set('n', '<leader>ff',
-  ':lua require("telescope.builtin").find_files({hidden=true, glob_pattern="!*{test,submodules,x64}*"})<CR>',
+  ':lua require("telescope.builtin").find_files()<CR>',
   { silent = true })
-vim.keymap.set('n', '<leader>fG', ':lua require("telescope.builtin").live_grep({glob_pattern="!*{submodules,x64}*"})<CR>',
+vim.keymap.set('n', '<leader>fG',
+  ':lua require("telescope.builtin").live_grep({glob_pattern="!{submodules,x64,.git}*"})<CR>',
   { silent = true })
 vim.keymap.set('n', '<leader>fg',
-  ':lua require("telescope.builtin").live_grep({glob_pattern="!*{test,submodules,x64}*"})<CR>', { silent = true })
-vim.keymap.set('x', '<leader>fw', function()
+  ':lua require("telescope.builtin").live_grep({glob_pattern="!{test,submodules,x64,.git}*"})<CR>', { silent = true })
+vim.keymap.set('x', '<leader>fg', function()
     require("telescope.builtin").live_grep({
-      glob_pattern = "!*{test,submodules,x64}*",
+      glob_pattern = "!*{test,submodules,x64,.git}*",
       default_text = utils
           .get_selected_text()
     })
   end,
   { silent = true })
-vim.keymap.set('x', '<leader>fW', function()
+vim.keymap.set('x', '<leader>fG', function()
     require("telescope.builtin").live_grep({
-      glob_pattern = "!*{submodules,x64}*",
+      glob_pattern = "!*{submodules,x64,.git}*",
+      default_text = utils
+          .get_selected_text()
+    })
+  end,
+  { silent = true })
+vim.keymap.set('n', '<leader>f8', function()
+    require("telescope.builtin").grep_string({
+      glob_pattern = "!*{test,submodules,x64,.git}*",
+      default_text = utils
+          .get_selected_text()
+    })
+  end,
+  { silent = true })
+vim.keymap.set('n', '<leader>f*', function()
+    require("telescope.builtin").grep_string({
+      glob_pattern = "!*{submodules,x64,.git}*",
       default_text = utils
           .get_selected_text()
     })
@@ -115,7 +132,7 @@ local function on_nvim_open(data)
   local is_directory = vim.fn.isdirectory(data.file) == 1
   if is_directory then
     vim.cmd.cd(data.file)
-    require("telescope.builtin").find_files({ hidden = true })
+    require("telescope.builtin").find_files({ hidden = false })
     return
   end
 end
