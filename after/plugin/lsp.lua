@@ -1,40 +1,46 @@
 local cmp = require('cmp')
 local luasnip = require('luasnip')
 
-local lsp_zero = require('lsp-zero').preset({
-  name = 'recommended',
-  manage_nvim_cmp = false,
-})
+-- local function setLspMappings(bufnr, format_keymap_cmd, debug_keymap_cmd)
+--   local opts = { buffer = bufnr, remap = false }
+--   local silentOpts = { buffer = bufnr, remap = false, silent = true }
+--
+--   vim.keymap.set('n', '<leader>fD', vim.lsp.buf.declaration, opts)
+--   vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+--   -- vim.keymap.set('n', '<leader>fs', function() vim.lsp.buf.workspace_symbol() end, opts)
+--   vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+--   vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+--   vim.keymap.set({ 'n', 'x' }, '<leader>ca', function() vim.lsp.buf.code_action() end, opts)
+--   -- vim.keymap.set('n', '<leader>ca', ':CodeActionMenu<CR>', silentOpts)
+--   -- vim.keymap.set('x', '<leader>ca', ':CodeActionMenu<CR>', silentOpts)
+--   vim.keymap.set('n', '<leader>cr', vim.lsp.buf.rename, opts)
+--   vim.keymap.set('i', '<C-n>', vim.lsp.buf.signature_help, opts)
+--   vim.keymap.set('n', 'gh', ':ClangdSwitchSourceHeader<CR>', silentOpts)
+--   vim.keymap.set('n', '<leader>cf', vim.lsp.buf.format, silentOpts)
+--   vim.keymap.set('n', '<leader>dr', ':' .. debug_keymap_cmd .. '<CR>', { silent = true })
+--
+--   local format_group = vim.api.nvim_create_augroup("LspFormatOnSave", { clear = true })
+--   vim.api.nvim_create_autocmd("BufWritePre", {
+--     pattern = '*.rs,*.lua,*.c,*.cpp,*.h,*.hpp,*.py,*.json,*.ts,*.tsx,*.js,*.jsx,*.rb',
+--     callback = function()
+--       vim.lsp.buf.format({ async = false })
+--       MiniTrailspace.trim()
+--       MiniTrailspace.trim_last_lines()
+--     end,
+--     group = format_group,
+--   })
+--
+--   vim.api.nvim_create_autocmd("BufWritePre", {
+--     pattern = '*.erb',
+--     callback = function()
+--       MiniTrailspace.trim()
+--       MiniTrailspace.trim_last_lines()
+--     end,
+--     group = format_group,
+--   })
+-- end
 
-local function setLspMappings(bufnr, format_keymap_cmd, debug_keymap_cmd)
-  local opts = { buffer = bufnr, remap = false }
-  local silentOpts = { buffer = bufnr, remap = false, silent = true }
-
-  vim.keymap.set('n', '<leader>fD', vim.lsp.buf.declaration, opts)
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-  -- vim.keymap.set('n', '<leader>fs', function() vim.lsp.buf.workspace_symbol() end, opts)
-  vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-  vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-  vim.keymap.set({ 'n', 'x' }, '<leader>ca', function() vim.lsp.buf.code_action() end, opts)
-  -- vim.keymap.set('n', '<leader>ca', ':CodeActionMenu<CR>', silentOpts)
-  -- vim.keymap.set('x', '<leader>ca', ':CodeActionMenu<CR>', silentOpts)
-  vim.keymap.set('n', '<leader>cr', vim.lsp.buf.rename, opts)
-  vim.keymap.set('i', '<C-n>', vim.lsp.buf.signature_help, opts)
-  vim.keymap.set('n', 'gh', ':ClangdSwitchSourceHeader<CR>', silentOpts)
-  vim.keymap.set('n', '<leader>cf', vim.lsp.buf.format, silentOpts)
-  vim.keymap.set('n', '<leader>dr', ':' .. debug_keymap_cmd .. '<CR>', { silent = true })
-
-  local format_group = vim.api.nvim_create_augroup("LspFormatOnSave", { clear = true })
-  vim.api.nvim_create_autocmd("BufWritePre", {
-    pattern = '*.rs,*.lua,*.c,*.cpp,*.h,*.hpp,*.py,*.json,*.ts,*.tsx,*.js,*.jsx,*.rb,*.erb',
-    callback = function()
-      vim.lsp.buf.format({ async = false })
-      MiniTrailspace.trim()
-      MiniTrailspace.trim_last_lines()
-    end,
-    group = format_group,
-  })
-end
+vim.cmd([[autocmd FileType ruby setlocal indentkeys-=.]])
 
 local opts = { remap = false }
 local silentOpts = { remap = false, silent = true }
@@ -53,7 +59,7 @@ vim.keymap.set('n', '<leader>cf', vim.lsp.buf.format, silentOpts)
 
 local format_group = vim.api.nvim_create_augroup("LspFormatOnSave", { clear = true })
 vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = '*.rs,*.lua,*.c,*.cpp,*.h,*.hpp,*.py,*.json,*.ts,*.tsx,*.js,*.jsx',
+  pattern = '*.rs,*.lua,*.c,*.cpp,*.h,*.hpp,*.py,*.json,*.ts,*.tsx,*.js,*.jsx,*.rb,*.swift',
   callback = function()
     vim.lsp.buf.format({ async = false })
     MiniTrailspace.trim()
@@ -62,19 +68,11 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   group = format_group,
 })
 
--- lsp_zero.preset({
---   name = 'recommended',
---   manage_nvim_cmp = false,
--- })
-lsp_zero.on_attach(
-  function(client, bufnr)
-    setLspMappings(bufnr, "LspZeroFormat", "DapContinue")
-  end
-)
+require('mason').setup()
+require('mason-lspconfig').setup()
 
-lsp_zero.nvim_workspace()
-
-lsp_zero.configure('basedpyright', {
+-- TODO
+vim.lsp.config('basedpyright', {
   settings = {
     analysis = {
       diagnosticMode = "workspace",
@@ -84,8 +82,11 @@ lsp_zero.configure('basedpyright', {
   },
 })
 
--- vim.lsp.set_log_level('debug')
-lsp_zero.setup()
+vim.lsp.config('html', {
+  filetypes = { 'html', "templ", "eruby" },
+})
+
+-- vim.lsp.config('herb_ls', { force_setup = true })
 
 _G.inlineDiagnostics = false
 function _G.toggleInlineDiagnostics()
@@ -109,7 +110,7 @@ local has_words_before = function()
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
-local cmp_config = lsp_zero.defaults.cmp_config({
+cmp.setup({
   completion = {
     autocomplete = false,
   },
@@ -157,7 +158,6 @@ local cmp_config = lsp_zero.defaults.cmp_config({
     end, { 'i', 's' }),
   },
 })
-cmp.setup(cmp_config)
 
 local completionDelay = 300
 local timer = nil
