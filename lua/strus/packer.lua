@@ -53,29 +53,18 @@ return require('packer').startup({
       'nvim-treesitter/nvim-treesitter',
       run = ':TSUpdate'
     }
-    use {
-      'VonHeikemen/lsp-zero.nvim',
-      branch = 'v1.x',
-      requires = {
-        -- LSP Support
-        { 'neovim/nvim-lspconfig' },             -- Required
-        { 'williamboman/mason.nvim' },           -- Optional
-        { 'williamboman/mason-lspconfig.nvim' }, -- Optional
-
-        -- Autocompletion
-        { 'hrsh7th/nvim-cmp' },         -- Required
-        { 'hrsh7th/cmp-nvim-lsp' },     -- Required
-        { 'hrsh7th/cmp-buffer' },       -- Optional
-        { 'hrsh7th/cmp-path' },         -- Optional
-        { 'saadparwaiz1/cmp_luasnip' }, -- Optional
-        { 'hrsh7th/cmp-nvim-lua' },     -- Optional
-        { 'hrsh7th/cmp-nvim-lsp-signature-help' },
-
-        -- Snippets
-        { 'L3MON4D3/LuaSnip' },             -- Required
-        { 'rafamadriz/friendly-snippets' }, -- Optional
-      }
-    }
+    use { 'neovim/nvim-lspconfig' }
+    use { 'williamboman/mason.nvim' }
+    use { 'williamboman/mason-lspconfig.nvim' }
+    use { 'hrsh7th/nvim-cmp' }
+    use { 'hrsh7th/cmp-nvim-lsp' }
+    use { 'hrsh7th/cmp-buffer' }
+    use { 'hrsh7th/cmp-path' }
+    use { 'saadparwaiz1/cmp_luasnip' }
+    use { 'hrsh7th/cmp-nvim-lua' }
+    use { 'hrsh7th/cmp-nvim-lsp-signature-help' }
+    use { 'L3MON4D3/LuaSnip' }
+    use { 'rafamadriz/friendly-snippets' }
     use { "rcarriga/nvim-dap-ui",
       requires = {
         "mfussenegger/nvim-dap",
@@ -89,7 +78,7 @@ return require('packer').startup({
       config = function()
         require("rust-tools").setup({
           server = {
-            on_attach = setLspMappings(bufnr, "RustFmt", "RustDebuggables"),
+            -- on_attach = setLspMappings(bufnr, "RustFmt", "RustDebuggables"),
             settings = {
               ["rust-analyzer"] = {
                 check = {
@@ -231,6 +220,7 @@ return require('packer').startup({
     use 'nvim-tree/nvim-web-devicons'
     use 'Shougo/denite.nvim'
     use { 'm00qek/baleia.nvim', tag = 'v1.3.0' }
+    use 'nvim-flutter/flutter-tools.nvim'
   end,
   config = {
     profile = {
