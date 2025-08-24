@@ -15,11 +15,13 @@ return require('packer').startup({
 
     -- navigation
     use {
-      'nvim-telescope/telescope.nvim', branch = '0.1.x',
+      'nvim-telescope/telescope.nvim',
+      branch = '0.1.x'
     }
-    use { 'nvim-telescope/telescope-fzf-native.nvim',
-      run =
-      'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
+    use {
+      'nvim-telescope/telescope-fzf-native.nvim',
+      run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
+    }
     use 'princejoogie/dir-telescope.nvim'
     use 'barrett-ruth/telescope-http.nvim'
     use 'theprimeagen/harpoon'
@@ -34,11 +36,6 @@ return require('packer').startup({
     use 'nvim-tree/nvim-tree.lua'
     use {
       'folke/trouble.nvim',
-      config = function()
-        require('trouble').setup {
-          mode = 'document_diagnostics'
-        }
-      end,
       cmd = 'Trouble',
     }
     use 'RRethy/vim-illuminate'
@@ -53,48 +50,29 @@ return require('packer').startup({
       'nvim-treesitter/nvim-treesitter',
       run = ':TSUpdate'
     }
-    use { 'neovim/nvim-lspconfig' }
-    use { 'williamboman/mason.nvim' }
-    use { 'williamboman/mason-lspconfig.nvim' }
-    use { 'hrsh7th/nvim-cmp' }
-    use { 'hrsh7th/cmp-nvim-lsp' }
-    use { 'hrsh7th/cmp-buffer' }
-    use { 'hrsh7th/cmp-path' }
-    use { 'saadparwaiz1/cmp_luasnip' }
-    use { 'hrsh7th/cmp-nvim-lua' }
-    use { 'hrsh7th/cmp-nvim-lsp-signature-help' }
-    use { 'L3MON4D3/LuaSnip' }
-    use { 'rafamadriz/friendly-snippets' }
-    use { "rcarriga/nvim-dap-ui",
+    use 'neovim/nvim-lspconfig'
+    use 'williamboman/mason.nvim'
+    use 'williamboman/mason-lspconfig.nvim'
+    use 'hrsh7th/nvim-cmp'
+    use 'hrsh7th/cmp-nvim-lsp'
+    use 'hrsh7th/cmp-buffer'
+    use 'hrsh7th/cmp-path'
+    use 'saadparwaiz1/cmp_luasnip'
+    use 'hrsh7th/cmp-nvim-lua'
+    use 'hrsh7th/cmp-nvim-lsp-signature-help'
+    use 'L3MON4D3/LuaSnip'
+    use 'rafamadriz/friendly-snippets'
+    use {
+      "rcarriga/nvim-dap-ui",
       requires = {
         "mfussenegger/nvim-dap",
         "nvim-neotest/nvim-nio",
       }
     }
-    use { 'j-hui/fidget.nvim', tag = 'v1.4.5' }
+    use 'j-hui/fidget.nvim'
     use 'rust-lang/rust.vim'
     use {
       'simrat39/rust-tools.nvim',
-      config = function()
-        require("rust-tools").setup({
-          server = {
-            -- on_attach = setLspMappings(bufnr, "RustFmt", "RustDebuggables"),
-            settings = {
-              ["rust-analyzer"] = {
-                check = {
-                  command = "clippy",
-                  extraArgs = { "--all", "--", "-W", "clippy::all" }
-                }
-              }
-            }
-          },
-          dap = {
-            adapter = require('rust-tools.dap').get_codelldb_adapter(
-              vim.fn.expand('~/.local/share/nvim/mason/bin/codelldb'),
-              vim.fn.expand('~/.local/share/nvim/mason/packages/codelldb/extension/lldb/lib/liblldb.dylib'))
-          },
-        })
-      end,
       ft = { 'rs' },
     }
     use 'nvimtools/none-ls.nvim'
@@ -111,16 +89,12 @@ return require('packer').startup({
     use 'kevinhwang91/nvim-bqf'
     use 'nvim-lualine/lualine.nvim'
     use 'luukvbaal/statuscol.nvim'
+    use 'lewis6991/gitsigns.nvim'
+
     use {
-      'lewis6991/gitsigns.nvim',
-      config = function()
-        require('gitsigns').setup({
-          signcolumn = false,
-        })
-        require('scrollbar.handlers.gitsigns').setup()
-      end
+      'weilbith/nvim-code-action-menu',
+      cmd = 'CodeActionMenu'
     }
-    use { 'weilbith/nvim-code-action-menu', cmd = 'CodeActionMenu' }
 
     -- code testing
     use 'vim-test/vim-test'
@@ -132,38 +106,22 @@ return require('packer').startup({
         'nvim-neotest/neotest-python',
       }
     }
-    use { 'ej-shafran/compile-mode.nvim', tag = 'v4.*' }
+    use {
+      'ej-shafran/compile-mode.nvim',
+      tag = 'v4.*'
+    }
 
     -- editing
     use 'terrortylor/nvim-comment'
-    use {
-      'windwp/nvim-autopairs',
-      config = function()
-        require('nvim-autopairs').setup()
-      end
-    }
-    use { 'danymat/neogen', tag = '*' }
-    use({
-      'kylechui/nvim-surround',
-      tag = '*',
-      config = function()
-        require('nvim-surround').setup()
-      end
-    })
+    use 'windwp/nvim-autopairs'
+
+    use 'danymat/neogen'
+    use 'kylechui/nvim-surround'
+
     use 'ThePrimeagen/refactoring.nvim'
     use 'MagicDuck/grug-far.nvim'
 
     -- project management
-    use {
-      'ahmedkhalf/project.nvim',
-      config = function()
-        require("project_nvim").setup({
-          detection_methods = { "pattern" },
-          patterns = {}
-        })
-      end,
-      key = '<leader>P',
-    }
     use 'jandamm/vim-projplugin'
     use 'airblade/vim-rooter'
 
@@ -171,16 +129,12 @@ return require('packer').startup({
     use 'gelguy/wilder.nvim'
     use 'wakatime/vim-wakatime'
     use 'mbbill/undotree'
-    use({
+    use {
       'iamcco/markdown-preview.nvim',
       run = function() vim.fn['mkdp#util#install']() end,
-    })
-    use({
-      'asiryk/auto-hlsearch.nvim',
-      config = function()
-        require('auto-hlsearch').setup()
-      end
-    })
+    }
+    use 'asiryk/auto-hlsearch.nvim'
+
     use {
       'tpope/vim-fugitive',
       key = {
@@ -194,21 +148,6 @@ return require('packer').startup({
     use {
       'NeogitOrg/neogit',
       cmd = 'Neogit',
-      config = function()
-        require("neogit").setup({
-          disable_context_highlighting = true,
-          git_services = {
-            ["git.dev.box.net"] = "https://git.dev.box.net/${owner}/${repository}/compare/${branch_name}?expand=1",
-            ["github.com"] = "https://github.com/${owner}/${repository}/compare/${branch_name}?expand=1",
-          },
-          kind = "split",
-          sections = {
-            untracked = {
-              folded = true,
-            },
-          },
-        })
-      end
     }
     use "zbirenbaum/copilot.lua"
     use "olimorris/codecompanion.nvim"
@@ -219,7 +158,7 @@ return require('packer').startup({
     use 'tpope/vim-dispatch'
     use 'nvim-tree/nvim-web-devicons'
     use 'Shougo/denite.nvim'
-    use { 'm00qek/baleia.nvim', tag = 'v1.3.0' }
+    use 'm00qek/baleia.nvim'
     use 'nvim-flutter/flutter-tools.nvim'
   end,
   config = {
