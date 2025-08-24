@@ -107,9 +107,6 @@ vim.keymap.set('n', '<leader>fk', builtin.keymaps, {})
 vim.keymap.set('n', '<leader><Tab>', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fo', builtin.oldfiles, {})
 
-require('telescope').load_extension('projects')
-vim.keymap.set('n', '<leader>P', function() require 'telescope'.extensions.projects.projects {} end)
-
 vim.cmd("autocmd User TelescopePreviewerLoaded setlocal wrap")
 
 require('telescope').load_extension('fzf')

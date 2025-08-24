@@ -71,10 +71,7 @@ return require('packer').startup({
     }
     use 'j-hui/fidget.nvim'
     use 'rust-lang/rust.vim'
-    use {
-      'simrat39/rust-tools.nvim',
-      ft = { 'rs' },
-    }
+    use 'simrat39/rust-tools.nvim'
     use 'nvimtools/none-ls.nvim'
     use 'mfussenegger/nvim-dap-python'
     use 'Vimjas/vim-python-pep8-indent'
@@ -134,6 +131,7 @@ return require('packer').startup({
       run = function() vim.fn['mkdp#util#install']() end,
     }
     use 'asiryk/auto-hlsearch.nvim'
+    use 'folke/snacks.nvim'
 
     use {
       'tpope/vim-fugitive',
@@ -145,10 +143,7 @@ return require('packer').startup({
       }
     }
     use "sindrets/diffview.nvim"
-    use {
-      'NeogitOrg/neogit',
-      cmd = 'Neogit',
-    }
+    use 'NeogitOrg/neogit'
     use "zbirenbaum/copilot.lua"
     use "olimorris/codecompanion.nvim"
     use 'echasnovski/mini.nvim'
