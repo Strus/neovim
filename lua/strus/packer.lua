@@ -2,7 +2,7 @@ local ensure_packer = function()
   local fn = vim.fn
   local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
   if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
+    fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/Strus/packer.nvim', install_path })
     vim.cmd [[packadd packer.nvim]]
   end
 end
@@ -11,7 +11,7 @@ ensure_packer()
 
 return require('packer').startup({
   function(use)
-    use 'wbthomason/packer.nvim'
+    use 'Strus/packer.nvim'
 
     -- navigation
     use {
@@ -34,10 +34,7 @@ return require('packer').startup({
       }
     }
     use 'nvim-tree/nvim-tree.lua'
-    use {
-      'folke/trouble.nvim',
-      cmd = 'Trouble',
-    }
+    use 'folke/trouble.nvim'
     use 'RRethy/vim-illuminate'
 
     -- themes
@@ -77,7 +74,6 @@ return require('packer').startup({
     use 'Vimjas/vim-python-pep8-indent'
     use 'p00f/clangd_extensions.nvim'
     use 'google/vim-jsonnet'
-    use 'echasnovski/mini.trailspace'
     use 'tpope/vim-rails'
 
     -- ui improvements
@@ -146,7 +142,10 @@ return require('packer').startup({
     use 'NeogitOrg/neogit'
     use "zbirenbaum/copilot.lua"
     use "olimorris/codecompanion.nvim"
-    use 'echasnovski/mini.nvim'
+    use {
+      'nvim-mini/mini.nvim',
+      branch = 'stable'
+    }
 
     -- plugin utilities
     use 'nvim-lua/plenary.nvim'
