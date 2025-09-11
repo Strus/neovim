@@ -12,11 +12,11 @@ telescope.setup({
     layout_config = {
       vertical = {
         preview_cutoff = 0,
-        width = 0.6,
+        width = 0.8,
       },
       center = {
         preview_cutoff = 0,
-        width = 0.4,
+        width = 0.8,
       },
     },
     mappings = {

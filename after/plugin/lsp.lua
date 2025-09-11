@@ -42,6 +42,7 @@ vim.lsp.config('basedpyright', {
 vim.lsp.config('html', {
   filetypes = { 'html', "templ", "eruby" },
 })
+vim.lsp.enable('sourcekit')
 
 _G.inlineDiagnostics = false
 function _G.toggleInlineDiagnostics()
@@ -79,7 +80,7 @@ cmp.setup({
   mapping = cmp.mapping.preset.insert {
     ['<C-f>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
-        vim.fn['copilot#Accept'](fallback)
+        require("copilot.suggestion").accept()
       else
         fallback()
       end
