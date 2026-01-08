@@ -74,6 +74,7 @@ return require('packer').startup({
     use 'p00f/clangd_extensions.nvim'
     use 'google/vim-jsonnet'
     use 'tpope/vim-rails'
+    use 'folke/sidekick.nvim'
 
     -- ui improvements
     use 'fgheng/winbar.nvim'
