@@ -68,7 +68,6 @@ return require('packer').startup({
     }
     use 'j-hui/fidget.nvim'
     use 'rust-lang/rust.vim'
-    use 'simrat39/rust-tools.nvim'
     use 'nvimtools/none-ls.nvim'
     use 'mfussenegger/nvim-dap-python'
     use 'Vimjas/vim-python-pep8-indent'
