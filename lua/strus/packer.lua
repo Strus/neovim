@@ -135,8 +135,6 @@ return require('packer').startup({
     }
     use "sindrets/diffview.nvim"
     use 'NeogitOrg/neogit'
-    use "zbirenbaum/copilot.lua"
-    use "olimorris/codecompanion.nvim"
     use {
       'nvim-mini/mini.nvim',
       branch = 'stable'
