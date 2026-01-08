@@ -163,7 +163,7 @@ vim.g.code_action_menu_show_action_kind = false
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.offsetEncoding = { "utf-16" }
-require("lspconfig").clangd.setup({ capabilities = capabilities })
+vim.lsp.config('clangd', { capabilities = capabilities })
 
 require("clangd_extensions").setup({
   extensions = {
