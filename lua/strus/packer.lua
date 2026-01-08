@@ -84,11 +84,6 @@ return require('packer').startup({
     use 'luukvbaal/statuscol.nvim'
     use 'lewis6991/gitsigns.nvim'
 
-    use {
-      'weilbith/nvim-code-action-menu',
-      cmd = 'CodeActionMenu'
-    }
-
     -- code testing
     use 'vim-test/vim-test'
     use 'okcompute/vim-nose'
