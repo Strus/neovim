@@ -16,7 +16,7 @@ local function get_current_pane()
   return os.getenv("TMUX_PANE")
 end
 
-local function get_opencode_pane()
+local function get_agent_pane()
   local current = get_current_pane()
   local panes = tmux_exec("list-panes -F '#{pane_id}:#{pane_current_command}'")
   for line in panes:gmatch("[^\r\n]+") do
@@ -38,15 +38,15 @@ local function is_zoomed()
 end
 
 local function toggle()
-  local opencode_pane = get_opencode_pane()
+  local agent_pane = get_agent_pane()
   local current_pane = get_current_pane()
 
-  if not opencode_pane then
+  if not agent_pane then
     os.execute("tmux split-window -h -l 40% \"zsh -i -c agent\"")
   else
     if is_zoomed() then
       os.execute("tmux resize-pane -Z")
-      os.execute("tmux select-pane -t " .. opencode_pane)
+      os.execute("tmux select-pane -t " .. agent_pane)
     else
       os.execute("tmux select-pane -t " .. current_pane)
       os.execute("tmux resize-pane -Z")
@@ -54,29 +54,29 @@ local function toggle()
   end
 end
 
-local function ensure_opencode_focused()
-  local opencode_pane = get_opencode_pane()
+local function ensure_agent_focused()
+  local agent_pane = get_agent_pane()
 
-  if not opencode_pane then
+  if not agent_pane then
     os.execute("tmux split-window -h -l 40% \"zsh -i -c agent\"")
   else
     if is_zoomed() then
       os.execute("tmux resize-pane -Z")
     end
 
-    os.execute("tmux select-pane -t " .. opencode_pane)
+    os.execute("tmux select-pane -t " .. agent_pane)
   end
 end
 
 local function send_file()
   local file = vim.fn.expand("%:.")
   vim.fn.setreg("+", file)
-  ensure_opencode_focused()
+  ensure_agent_focused()
 end
 
 local function send_selection()
   vim.cmd('normal! "+y')
-  ensure_opencode_focused()
+  ensure_agent_focused()
 end
 
 vim.keymap.set("n", "<leader>aa", toggle)
