@@ -2,6 +2,8 @@ local SIDEKICK_COMMANDS = {
   "opencode",
   "cursor-agent",
   "agent",
+  "gemini",
+  "node", -- for gemini...
 }
 
 local function tmux_exec(cmd)
