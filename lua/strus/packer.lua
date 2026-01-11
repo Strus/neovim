@@ -68,6 +68,7 @@ return require('packer').startup({
     }
     use 'j-hui/fidget.nvim'
     use 'rust-lang/rust.vim'
+    -- use 'simrat39/rust-tools.nvim' TODO: change to https://github.com/mrcjkb/rustaceanvim
     use 'nvimtools/none-ls.nvim'
     use 'mfussenegger/nvim-dap-python'
     use 'Vimjas/vim-python-pep8-indent'
@@ -134,6 +135,8 @@ return require('packer').startup({
     }
     use "sindrets/diffview.nvim"
     use 'NeogitOrg/neogit'
+    use "zbirenbaum/copilot.lua"
+    use "copilotlsp-nvim/copilot-lsp"
     use {
       'nvim-mini/mini.nvim',
       branch = 'stable'

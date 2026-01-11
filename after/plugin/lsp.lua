@@ -69,10 +69,10 @@ end
 cmp.setup({
   window = {
     completion = cmp.config.window.bordered({
-        border = "rounded",
+      border = "rounded",
     }),
     documentation = cmp.config.window.bordered({
-        border = "rounded",
+      border = "rounded",
     }),
   },
   completion = {
@@ -176,3 +176,21 @@ require("clangd_extensions").setup({
     },
   }
 })
+--
+-- require("rust-tools").setup({
+--   server = {
+--     settings = {
+--       ["rust-analyzer"] = {
+--         check = {
+--           command = "clippy",
+--           extraArgs = { "--all", "--", "-W", "clippy::all" }
+--         }
+--       }
+--     }
+--   },
+--   dap = {
+--     adapter = require('rust-tools.dap').get_codelldb_adapter(
+--       vim.fn.expand('~/.local/share/nvim/mason/bin/codelldb'),
+--       vim.fn.expand('~/.local/share/nvim/mason/packages/codelldb/extension/lldb/lib/liblldb.dylib'))
+--   },
+-- })
