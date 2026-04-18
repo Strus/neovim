@@ -8,7 +8,7 @@ local SIDEKICK_COMMANDS = {
 }
 
 local AGENT_MODELS = {
-  "gpt-5.4-mini-high",
+  "composer-2",
   "gpt-5.4-high",
 }
 
