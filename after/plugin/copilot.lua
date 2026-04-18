@@ -13,6 +13,7 @@ require("copilot").setup({
     },
     nes = {
       enabled = true,
+      auto_trigger = true,
       keymap = {
         accept_and_goto = "<C-f>",
         accept = false,
@@ -22,30 +23,3 @@ require("copilot").setup({
     sh = false,
   },
 })
-
-vim.api.nvim_create_user_command(
-  'CursorOpenFile',
-  function()
-    local file_path = vim.fn.expand('%:p')
-    local line_num = vim.fn.line('.')
-    local cmd = string.format('cursor -r --goto "%s:%s"', file_path, line_num)
-    vim.fn.jobstart(cmd, { detach = true })
-  end,
-  {
-    nargs = 0,
-  }
-)
-
-vim.api.nvim_create_user_command(
-  'Cursor',
-  function()
-    local workspace_path = vim.fn.getcwd()
-    local cmd = string.format('cursor -r "%s"', workspace_path)
-    vim.fn.jobstart(cmd, { detach = true })
-  end,
-  {
-    nargs = 0,
-  }
-)
-
-vim.keymap.set({ 'n', 'v' }, '<leader>aA', ':Cursor<CR>', { silent = true })

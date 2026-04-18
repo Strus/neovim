@@ -1,6 +1,6 @@
-require('winbar').setup({
-  enabled = true,
-  exclude_filetype = {
-    '',
-  }
-})
+-- require('winbar').setup({
+--   enabled = true,
+--   exclude_filetype = {
+--     '',
+--   }
+-- })

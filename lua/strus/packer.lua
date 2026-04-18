@@ -77,7 +77,7 @@ return require('packer').startup({
     use 'tpope/vim-rails'
 
     -- ui improvements
-    use 'fgheng/winbar.nvim'
+    use 'Bekaboo/dropbar.nvim'
     use 'petertriho/nvim-scrollbar'
     use 'kevinhwang91/nvim-bqf'
     use 'nvim-lualine/lualine.nvim'
