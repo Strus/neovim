@@ -1,50 +1,47 @@
-require 'nvim-treesitter.configs'.setup {
-    -- A list of parser names, or "all" (the four listed parsers should always be installed)
-    ensure_installed = {
-        "bash",
-        "c",
-        "c_sharp",
-        "cmake",
-        "cpp",
-        "css",
-        "comment",
-        "dart",
-        "gitcommit",
-        "gitignore",
-        "vimdoc",
-        "html",
-        "json",
-        "lua",
-        "make",
-        "markdown",
-        "python",
-        "rust",
-        "scss",
-        "swift",
-        "vim",
-    },
+-- Enable treesitter highlighting and indentation via FileType autocmd
+vim.api.nvim_create_autocmd('FileType', {
+  callback = function()
+    -- Enable treesitter highlighting (disables regex syntax)
+    pcall(vim.treesitter.start)
+    -- Enable treesitter-based indentation (except for python)
+    if vim.bo.filetype ~= 'python' then
+      vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    end
+  end,
+})
 
-  -- Install parsers synchronously (only applied to `ensure_installed`)
-  sync_install = false,
-
-  -- Automatically install missing parsers when entering buffer
-  -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-  auto_install = true,
-
-  ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
-  -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
-
-  highlight = {
-    -- `false` will disable the whole extension
-    enable = true,
-    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-    -- Using this option may slow down your editor, and you may see some duplicate highlights.
-    -- Instead of true it can also be a list of languages
-    additional_vim_regex_highlighting = false,
-  },
-  indent = {
-    enable = true,
-    disable = { "python" }
-  }
+-- Ensure parsers are installed (only installs missing ones)
+local ensure_installed = {
+  "bash",
+  "c",
+  "c_sharp",
+  "cmake",
+  "cpp",
+  "css",
+  "comment",
+  "dart",
+  "gitcommit",
+  "gitignore",
+  "vimdoc",
+  "html",
+  "json",
+  "lua",
+  "make",
+  "markdown",
+  "python",
+  "rust",
+  "scss",
+  "swift",
+  "vim",
 }
+
+local already_installed = require('nvim-treesitter.config').get_installed()
+local parsers_to_install = vim.iter(ensure_installed)
+  :filter(function(parser)
+    return not vim.tbl_contains(already_installed, parser)
+  end)
+  :totable()
+
+if #parsers_to_install > 0 then
+  require('nvim-treesitter').install(parsers_to_install)
+end

@@ -1,6 +1,8 @@
+vim.cmd('packadd nvim.undotree')
+
 require('strus.remap')
 require('strus.set')
-require('strus.packer')
+require('strus.pack')
 require('strus.websearch')
 
 local timer = vim.loop.new_timer()

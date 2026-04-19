@@ -17,9 +17,17 @@ vim.keymap.set('n', '<leader>cf', vim.lsp.buf.format, silentOpts)
 vim.cmd([[autocmd FileType ruby setlocal indentkeys-=.]])
 local format_group = vim.api.nvim_create_augroup("LspFormatOnSave", { clear = true })
 vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = '*.rs,*.lua,*.c,*.cpp,*.h,*.hpp,*.py,*.json,*.ts,*.tsx,*.js,*.jsx,*.rb,*.swift',
+  pattern = '*.rs,*.lua,*.c,*.cpp,*.h,*.hpp,*.py,*.json,*.ts,*.tsx,*.js,*.jsx,*.rb',
   callback = function()
     vim.lsp.buf.format({ async = false })
+    MiniTrailspace.trim()
+    MiniTrailspace.trim_last_lines()
+  end,
+  group = format_group,
+})
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = '*.swift',
+  callback = function()
     MiniTrailspace.trim()
     MiniTrailspace.trim_last_lines()
   end,
