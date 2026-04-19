@@ -25,6 +25,14 @@ vim.api.nvim_create_autocmd('PackChanged', {
       if not ev.data.active then vim.cmd.packadd('markdown-preview.nvim') end
       vim.fn['mkdp#util#install']()
     end
+
+    -- fff.nvim: build on install/update
+    if name == 'fff.nvim' and (kind == 'install' or kind == 'update') then
+      if not ev.data.active then
+        vim.cmd.packadd('fff.nvim')
+      end
+      require('fff.download').download_or_build_binary()
+    end
   end
 })
 
@@ -39,6 +47,7 @@ vim.pack.add({
   'https://github.com/nvim-tree/nvim-tree.lua',
   'https://github.com/folke/trouble.nvim',
   'https://github.com/RRethy/vim-illuminate',
+  'https://github.com/dmtrKovalenko/fff.nvim',
 
   -- themes
   'https://github.com/EdenEast/nightfox.nvim',

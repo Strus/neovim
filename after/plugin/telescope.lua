@@ -1,4 +1,4 @@
-local utils = require('strus.utils')
+-- local utils = require('strus.utils')
 local telescope = require('telescope')
 local actions = require('telescope.actions')
 local builtin = require('telescope.builtin')
@@ -72,46 +72,47 @@ require('dir-telescope').setup({
   show_preview = true,
 })
 
-vim.keymap.set('n', '<leader>fg', builtin.git_files)
+-- Covered by fff.lua:
+-- vim.keymap.set('n', '<leader>fg', builtin.git_files)
 vim.keymap.set('n', '<leader>gc', builtin.git_branches)
-vim.keymap.set('n', '<leader>fF', function() builtin.find_files({ hidden = true }) end)
-vim.keymap.set('n', '<leader>ff', builtin.find_files)
-vim.keymap.set('n', '<leader>fG',
-  function()
-    builtin.live_grep({ glob_pattern = "!{submodules,x64,.git}*" })
-  end
-)
-vim.keymap.set('n', '<leader>fg',
-  function()
-    builtin.live_grep({ glob_pattern = "!{test,submodules,x64,.git}*" })
-  end
-)
-vim.keymap.set('x', '<leader>fg',
-  function()
-    builtin.live_grep({
-      glob_pattern = "!*{test,submodules,x64,.git}*",
-      default_text = utils.get_selected_text()
-    })
-  end
-)
-vim.keymap.set('x', '<leader>fG',
-  function()
-    builtin.live_grep({
-      glob_pattern = "!*{submodules,x64,.git}*",
-      default_text = utils.get_selected_text()
-    })
-  end
-)
-vim.keymap.set('n', '<leader>f8',
-  function()
-    builtin.grep_string({ glob_pattern = "!*{test,submodules,x64,.git}*" })
-  end
-)
-vim.keymap.set('n', '<leader>f*',
-  function()
-    builtin.grep_string({ glob_pattern = "!*{submodules,x64,.git}*" })
-  end
-)
+-- vim.keymap.set('n', '<leader>fF', function() builtin.find_files({ hidden = true }) end)
+-- vim.keymap.set('n', '<leader>ff', builtin.find_files)
+-- vim.keymap.set('n', '<leader>fG',
+--   function()
+--     builtin.live_grep({ glob_pattern = "!{submodules,x64,.git}*" })
+--   end
+-- )
+-- vim.keymap.set('n', '<leader>fg',
+--   function()
+--     builtin.live_grep({ glob_pattern = "!{test,submodules,x64,.git}*" })
+--   end
+-- )
+-- vim.keymap.set('x', '<leader>fg',
+--   function()
+--     builtin.live_grep({
+--       glob_pattern = "!*{test,submodules,x64,.git}*",
+--       default_text = utils.get_selected_text()
+--     })
+--   end
+-- )
+-- vim.keymap.set('x', '<leader>fG',
+--   function()
+--     builtin.live_grep({
+--       glob_pattern = "!*{submodules,x64,.git}*",
+--       default_text = utils.get_selected_text()
+--     })
+--   end
+-- )
+-- vim.keymap.set('n', '<leader>f8',
+--   function()
+--     builtin.grep_string({ glob_pattern = "!*{test,submodules,x64,.git}*" })
+--   end
+-- )
+-- vim.keymap.set('n', '<leader>f*',
+--   function()
+--     builtin.grep_string({ glob_pattern = "!*{submodules,x64,.git}*" })
+--   end
+-- )
 vim.keymap.set('n', '<leader>fi', ":Telescope dir live_grep<CR>", { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>fr', builtin.lsp_references)
 vim.keymap.set('n', '<leader>fd', builtin.lsp_definitions)
@@ -122,17 +123,18 @@ vim.keymap.set('n', '<leader>fk', builtin.keymaps)
 vim.keymap.set('n', '<leader><Tab>', builtin.buffers)
 vim.keymap.set('n', '<leader>fo', builtin.oldfiles)
 
-local function on_nvim_open(data)
-  local is_directory = vim.fn.isdirectory(data.file) == 1
-  if is_directory then
-    vim.cmd.cd(data.file)
-    require("telescope.builtin").find_files({ hidden = false })
-    return
-  end
-end
-vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = on_nvim_open })
+-- Covered by fff.lua:
+-- local function on_nvim_open(data)
+--   local is_directory = vim.fn.isdirectory(data.file) == 1
+--   if is_directory then
+--     vim.cmd.cd(data.file)
+--     require("telescope.builtin").find_files({ hidden = false })
+--     return
+--   end
+-- end
+-- vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = on_nvim_open })
 
-vim.cmd("autocmd User TelescopePreviewerLoaded setlocal wrap")
+-- vim.cmd("autocmd User TelescopePreviewerLoaded setlocal wrap")
 
 telescope.load_extension('harpoon')
 vim.keymap.set("n", "<leader>fh", ":Telescope harpoon marks<CR>")
