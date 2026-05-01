@@ -3,7 +3,7 @@ vim.api.nvim_create_autocmd('PackChanged', {
   callback = function(ev)
     local name, kind = ev.data.spec.name, ev.data.kind
 
-    vim.fn.system('python3 -m pip install --user pynvim')
+    vim.fn.system('python3 -m pip install --user --upgrade pynvim')
 
     -- nvim-treesitter: update parsers on install/update
     if name == 'nvim-treesitter' and (kind == 'install' or kind == 'update') then
@@ -98,7 +98,7 @@ vim.pack.add({
 
   -- code testing
   'https://github.com/vim-test/vim-test',
-  'https://github.com/okcompute/vim-nose',
+  -- 'https://github.com/okcompute/vim-nose',
   'https://github.com/nvim-neotest/neotest',
   'https://github.com/nvim-neotest/neotest-vim-test',
   { src = 'https://github.com/ej-shafran/compile-mode.nvim',    version = vim.version.range('4.x') },
