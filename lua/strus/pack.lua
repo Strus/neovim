@@ -3,6 +3,8 @@ vim.api.nvim_create_autocmd('PackChanged', {
   callback = function(ev)
     local name, kind = ev.data.spec.name, ev.data.kind
 
+    vim.fn.system('python3 -m pip install --user pynvim')
+
     -- nvim-treesitter: update parsers on install/update
     if name == 'nvim-treesitter' and (kind == 'install' or kind == 'update') then
       if not ev.data.active then vim.cmd.packadd('nvim-treesitter') end
@@ -24,6 +26,11 @@ vim.api.nvim_create_autocmd('PackChanged', {
     if name == 'markdown-preview.nvim' and (kind == 'install' or kind == 'update') then
       if not ev.data.active then vim.cmd.packadd('markdown-preview.nvim') end
       vim.fn['mkdp#util#install']()
+    end
+
+    -- denite.nvim and wilder.nvim: refresh remote plugin manifest on install/update
+    if (name == 'denite.nvim' or name == 'wilder.nvim') and (kind == 'install' or kind == 'update') then
+      vim.cmd('UpdateRemotePlugins')
     end
 
     -- fff.nvim: build on install/update
@@ -48,6 +55,7 @@ vim.pack.add({
   'https://github.com/folke/trouble.nvim',
   'https://github.com/RRethy/vim-illuminate',
   'https://github.com/dmtrKovalenko/fff.nvim',
+  'https://github.com/theprimeagen/harpoon',
 
   -- themes
   'https://github.com/EdenEast/nightfox.nvim',
@@ -110,7 +118,7 @@ vim.pack.add({
   'https://github.com/airblade/vim-rooter',
 
   -- misc
-  'https://github.com/gelguy/wilder.nvim',
+  'https://github.com/wookayin/wilder.nvim',
   'https://github.com/wakatime/vim-wakatime',
   'https://github.com/iamcco/markdown-preview.nvim',
   'https://github.com/asiryk/auto-hlsearch.nvim',
@@ -129,7 +137,5 @@ vim.pack.add({
   'https://github.com/Shougo/denite.nvim',
   'https://github.com/m00qek/baleia.nvim',
   'https://github.com/nvim-flutter/flutter-tools.nvim',
-
-  -- from original plugins.lua
-  'https://github.com/theprimeagen/harpoon',
+  'https://github.com/lewis6991/async.nvim',
 })
