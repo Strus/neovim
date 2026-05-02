@@ -61,6 +61,10 @@
       "rev": "78c638293f0ea6a2245eca46e9933ee271792d7e",
       "src": "https://github.com/zbirenbaum/copilot.lua"
     },
+    "cursortab.nvim": {
+      "rev": "b9f9b0a492d97081f5627c37b1d778f901fb85db",
+      "src": "https://github.com/cursortab/cursortab.nvim"
+    },
     "denite.nvim": {
       "rev": "055dd686c274a293dc4b7365be07c159148c31dd",
       "src": "https://github.com/Shougo/denite.nvim"

@@ -6,7 +6,7 @@ end
 vim.g.copilot_nes_debounce = 500
 require("copilot").setup({
   suggestion = {
-    auto_trigger = true,
+    auto_trigger = false,
     keymap = {
       accept = "<C-f>",
       dismiss = "<Esc>",
