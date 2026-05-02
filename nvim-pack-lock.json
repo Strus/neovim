@@ -61,10 +61,6 @@
       "rev": "78c638293f0ea6a2245eca46e9933ee271792d7e",
       "src": "https://github.com/zbirenbaum/copilot.lua"
     },
-    "cursortab.nvim": {
-      "rev": "b9f9b0a492d97081f5627c37b1d778f901fb85db",
-      "src": "https://github.com/cursortab/cursortab.nvim"
-    },
     "denite.nvim": {
       "rev": "055dd686c274a293dc4b7365be07c159148c31dd",
       "src": "https://github.com/Shougo/denite.nvim"
@@ -236,7 +232,7 @@
       "src": "https://github.com/rust-lang/rust.vim"
     },
     "rustaceanvim": {
-      "rev": "040ee98d5911046a8b83d5fe181af968f137eddb",
+      "rev": "ae5bced54e93149385916efad2fc9d24cdecdc56",
       "src": "https://github.com/mrcjkb/rustaceanvim"
     },
     "snacks.nvim": {
@@ -256,7 +252,7 @@
       "src": "https://github.com/nvim-telescope/telescope-fzf-native.nvim"
     },
     "telescope.nvim": {
-      "rev": "506338434fec5ad19cb1f8d45bf92d66c4917393",
+      "rev": "62cc79911abf0af91b63830744889a6eb029d786",
       "src": "https://github.com/nvim-telescope/telescope.nvim"
     },
     "trouble.nvim": {
@@ -278,10 +274,6 @@
     "vim-jsonnet": {
       "rev": "4ebc6619ddce5d032a985b42a9864154c3d20e4a",
       "src": "https://github.com/google/vim-jsonnet"
-    },
-    "vim-nose": {
-      "rev": "bb5af61f5b8b86d6386f0f9dca76762f12367215",
-      "src": "https://github.com/okcompute/vim-nose"
     },
     "vim-projplugin": {
       "rev": "c16045324dd39388032b3ec13c4669640f049980",
