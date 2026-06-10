@@ -3,8 +3,6 @@ vim.api.nvim_create_autocmd('PackChanged', {
   callback = function(ev)
     local name, kind = ev.data.spec.name, ev.data.kind
 
-    vim.fn.system('python3 -m pip install --user --upgrade pynvim')
-
     -- nvim-treesitter: update parsers on install/update
     if name == 'nvim-treesitter' and (kind == 'install' or kind == 'update') then
       if not ev.data.active then vim.cmd.packadd('nvim-treesitter') end
@@ -40,6 +38,8 @@ vim.api.nvim_create_autocmd('PackChanged', {
       end
       require('fff.download').download_or_build_binary()
     end
+
+    vim.fn.system('python3 -m pip install --user --upgrade pynvim')
   end
 })
 
@@ -101,7 +101,8 @@ vim.pack.add({
   -- 'https://github.com/okcompute/vim-nose',
   'https://github.com/nvim-neotest/neotest',
   'https://github.com/nvim-neotest/neotest-vim-test',
-  { src = 'https://github.com/ej-shafran/compile-mode.nvim',    version = vim.version.range('4.x') },
+  -- { src = 'https://github.com/ej-shafran/compile-mode.nvim',    version = vim.version.range('4.x') },
+  'https://github.com/ej-shafran/compile-mode.nvim',
 
   -- editing
   'https://github.com/terrortylor/nvim-comment',
@@ -126,7 +127,7 @@ vim.pack.add({
   'https://github.com/NeogitOrg/neogit',
   'https://github.com/zbirenbaum/copilot.lua',
   'https://github.com/copilotlsp-nvim/copilot-lsp',
-  { src = 'https://github.com/nvim-mini/mini.nvim', version = 'stable' },
+  { src = 'https://github.com/nvim-mini/mini.nvim',             version = 'stable' },
 
   -- plugin utilities
   'https://github.com/nvim-lua/plenary.nvim',
