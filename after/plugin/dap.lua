@@ -1,4 +1,5 @@
 local dap = require('dap')
+local lldb_dap = vim.fn.exepath("lldb-dap")
 
 vim.api.nvim_set_hl(0, 'DapBreakpoint', { ctermbg = 0, fg = '#993939', bg = '#31353f' })
 vim.api.nvim_set_hl(0, 'DapLogPoint', { ctermbg = 0, fg = '#61afef', bg = '#31353f' })
@@ -20,6 +21,16 @@ vim.fn.sign_define('DapStopped', { text = '', texthl = 'DapStopped', linehl =
 vim.keymap.set('n', '<leader>db', ':DapToggleBreakpoint<CR>', { silent = true })
 vim.keymap.set('n', '<leader>dl', ':lua require("dap").list_breakpoints()<CR>:copen<CR>', { silent = true })
 
+require("dap-view").setup({
+  winbar = {
+    default_section = "scopes",
+    controls = {
+      enabled = true,
+    }
+  },
+  auto_toggle = true,
+})
+
 
 dap.adapters.python = {
   type = 'executable',
@@ -36,4 +47,9 @@ dap.configurations.python = {
     -- -- Options below are for debugpy, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for supported options
     program = vim.fn.expand("%:p"),
   },
+}
+
+dap.adapters.lldb = {
+  type = "executable",
+  command = lldb_dap,
 }

@@ -8,8 +8,8 @@ local SIDEKICK_COMMANDS = {
 }
 
 local AGENT_MODELS = {
-  "composer-2",
-  "gpt-5.4-high",
+  "composer-2.5",
+  "gpt-5.5-high",
 }
 
 local function tmux_exec(cmd)
@@ -172,7 +172,7 @@ end
 
 local function run_agent_prompt(prompt, model)
   local progress_state = nil
-  local cmd = { "agent", "-p", prompt }
+  local cmd = { "agent", "--yolo", "-p", prompt }
   if model and model ~= "" then
     table.insert(cmd, "--model")
     table.insert(cmd, model)
