@@ -101,7 +101,6 @@ vim.pack.add({
   -- 'https://github.com/okcompute/vim-nose',
   'https://github.com/nvim-neotest/neotest',
   'https://github.com/nvim-neotest/neotest-vim-test',
-  -- { src = 'https://github.com/ej-shafran/compile-mode.nvim',    version = vim.version.range('4.x') },
   'https://github.com/ej-shafran/compile-mode.nvim',
 
   -- editing
@@ -125,8 +124,6 @@ vim.pack.add({
   'https://github.com/tpope/vim-fugitive',
   'https://github.com/sindrets/diffview.nvim',
   'https://github.com/NeogitOrg/neogit',
-  'https://github.com/zbirenbaum/copilot.lua',
-  'https://github.com/copilotlsp-nvim/copilot-lsp',
   { src = 'https://github.com/nvim-mini/mini.nvim',             version = 'stable' },
 
   -- plugin utilities
