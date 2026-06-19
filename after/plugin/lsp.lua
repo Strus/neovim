@@ -83,8 +83,10 @@ cmp.setup({
       border = "rounded",
     }),
   },
+  preselect = cmp.PreselectMode.Item,
   completion = {
     autocomplete = false,
+    completeopt = 'menu,menuone,noinsert',
   },
   sources = {
     { name = 'path' },
@@ -102,11 +104,18 @@ cmp.setup({
     },
     ['<Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
-        cmp.select_next_item()
+        if #cmp.get_entries() == 1 then
+          cmp.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert })
+        else
+          cmp.select_next_item()
+        end
       elseif luasnip.expand_or_jumpable() then
         luasnip.expand_or_jump()
       elseif has_words_before() then
         cmp.complete()
+        if #cmp.get_entries() == 1 then
+          cmp.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert })
+        end
       else
         fallback()
       end
