@@ -59,19 +59,6 @@ vim.api.nvim_create_autocmd("FileChangedShellPost", {
   end
 })
 
-vim.api.nvim_create_user_command(
-  'Replace',
-  function(args)
-    local cfdo_args = '%s/'
-    for w in args.args:gmatch("%S+") do cfdo_args = cfdo_args .. w .. '/' end
-    cfdo_args = cfdo_args .. 'ge | update'
-    vim.cmd.cfdo(cfdo_args)
-  end,
-  {
-    nargs = '?',
-  }
-)
-
 -- command! -nargs=1 ToClip :let @+=@<args>
 
 vim.cmd [[

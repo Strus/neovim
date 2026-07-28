@@ -4,13 +4,16 @@ local fff = require('fff')
 fff.setup({
   prompt = '> ',
   layout = {
+    height = 1.0,
+    width = 1.0,
     preview_size = 0.6,
+    preview_position = 'top',
   },
   preview = {
     wrap_lines = true,
   },
   keymaps = {
-    cycle_previous_query = { '<C-k>', '<C-Up>' },
+    cycle_previous_query = { '<C-k>' },
   },
   grep = {
     modes = { 'fuzzy', 'plain' },
@@ -19,22 +22,22 @@ fff.setup({
 
 vim.keymap.set('n', '<leader>ff', function() fff.find_files() end)
 vim.keymap.set('n', '<leader>fg', function()
-  fff.live_grep({ query = '!test/ !submodules/ !x64/ ' })
+  fff.live_grep({ query = '!submodules/ ' })
 end)
 vim.keymap.set('n', '<leader>fG', function()
-  fff.live_grep({ query = '!submodules/ !x64/ ' })
+  fff.live_grep({ query = '!submodules/ ' })
 end)
 vim.keymap.set('x', '<leader>fg', function()
-  fff.live_grep({ query = '!test/ !submodules/ !x64/ ' .. utils.get_selected_text() })
+  fff.live_grep({ query = '!submodules/ ' .. utils.get_selected_text() })
 end)
 vim.keymap.set('x', '<leader>fG', function()
-  fff.live_grep({ query = '!submodules/ !x64/ ' .. utils.get_selected_text() })
+  fff.live_grep({ query = '!submodules/ ' .. utils.get_selected_text() })
 end)
 vim.keymap.set('n', '<leader>f8', function()
-  fff.live_grep({ query = '!test/ !submodules/ !x64/ ' .. vim.fn.expand('<cword>') })
+  fff.live_grep({ query = '!submodules/ ' .. vim.fn.expand('<cword>') })
 end)
 vim.keymap.set('n', '<leader>f*', function()
-  fff.live_grep({ query = '!submodules/ !x64/ ' .. vim.fn.expand('<cword>') })
+  fff.live_grep({ query = '!submodules/ ' .. vim.fn.expand('<cword>') })
 end)
 
 -- Open fff when nvim is opened with a directory (was: telescope find_files on VimEnter)

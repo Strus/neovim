@@ -4,6 +4,7 @@ vim.g.compile_mode = {
   buffer_name = "__compilation__",
   bang_expansion = true,
   focus_compilation_buffer = true,
+  use_pseudo_terminal = true,
   error_regexp_table = {
     vs = {
       -- 5>C:\Users\user\project\src\main.cpp(345,5): error C3861: 'missingSymbol': identifier not found [C:\Users\user\project\project.vcxproj]
