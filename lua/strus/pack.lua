@@ -57,7 +57,6 @@ vim.pack.add({
 
   -- themes
   'https://github.com/EdenEast/nightfox.nvim',
-  'https://github.com/sainnhe/everforest',
   'https://github.com/maxmx03/solarized.nvim',
 
   -- code-specific (lsp etc.)

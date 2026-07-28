@@ -4,7 +4,9 @@ set mouse=a
 " Set Editor Font
 if exists(':GuiFont')
     " Use GuiFont! to ignore font errors
-    GuiFont! Iosevka NF:h13:l
+    GuiFont! Iosevka NF:h18
+else
+    set guifont=Iosevka\ NF:h18
 endif
 
 " Disable GUI Tabline
@@ -30,3 +32,5 @@ nnoremap <silent><RightMouse> :CodeActionMenu<CR>
 inoremap <silent><RightMouse> <Esc>:CodeActionMenu<CR>
 xnoremap <silent><RightMouse> :CodeActionMenu<CR>gv
 snoremap <silent><RightMouse> <C-G>:CodeActionMenu<CR>gv
+
+let g:neovide_cursor_animation_length = 0
