@@ -1,79 +1,153 @@
 vim.o.termguicolors = true
 
-function ReadWeztermTheme()
-  local wezterm_config_path = os.getenv("HOME") .. "/.wezterm.lua"
-  local file = io.open(wezterm_config_path, "r")
-  if not file then
-    print("Error: Could not open .wezterm.lua")
-    return nil
-  end
+local uv = vim.loop
+local state_dir = vim.fn.expand("~/.local/state/theme")
+local mode_file = state_dir .. "/mode"
+local applied_mode
+local applying = false
 
-  local content = file:read("*all")
-  file:close()
-
-  local theme = content:match('color_scheme = "(.-)"')
-  return theme
+local function macos_is_dark()
+  local result = vim.fn.system({
+    "osascript",
+    "-e",
+    'tell application "System Events" to tell appearance preferences to get dark mode',
+  })
+  return vim.v.shell_error == 0 and result:match("true") ~= nil
 end
 
-function UpdateWeztermTheme(theme)
-  local wezterm_config_path = os.getenv("HOME") .. "/.wezterm.lua"
-  local file = io.open(wezterm_config_path, "r")
-  if not file then
-    print("Error: Could not open .wezterm.lua")
+local function read_mode()
+  local file = io.open(mode_file, "r")
+  if file then
+    local mode = file:read("*l")
+    file:close()
+    if mode == "dark" or mode == "light" then
+      return mode
+    end
+  end
+  if macos_is_dark() then
+    return "dark"
+  end
+  return "light"
+end
+
+local function apply_mode(mode)
+  local background = mode == "light" and "light" or "dark"
+  local name = mode == "light" and "solarized" or "terafox"
+  if not applying
+      and mode == applied_mode
+      and vim.o.background == background
+      and vim.g.colors_name == name then
     return
   end
 
-  local content = file:read("*all")
-  file:close()
+  applying = true
+  local ok, err = pcall(function()
+    -- Setting background reloads terafox, which forces background=dark.
+    vim.cmd("hi clear")
+    if vim.fn.exists("syntax_on") == 1 then
+      vim.cmd("syntax reset")
+    end
+    vim.g.colors_name = nil
+    vim.cmd("noautocmd set background=" .. background)
 
-  local updated_content = content:gsub('color_scheme = ".*"', 'color_scheme = "' .. theme .. '"')
+    if mode == "light" then
+      require("solarized").setup({})
+    end
+    vim.cmd.colorscheme(name)
 
-  file = io.open(wezterm_config_path, "w")
-  if not file then
-    print("Error: Could not write to .wezterm.lua")
+    if vim.o.background ~= background then
+      vim.cmd("noautocmd set background=" .. background)
+      vim.cmd.colorscheme(name)
+    end
+
+    vim.cmd.redraw()
+  end)
+  applying = false
+  if not ok then
+    error(err)
+  end
+  applied_mode = mode
+end
+
+local function apply_mode_now_and_later(mode)
+  apply_mode(mode)
+  vim.defer_fn(function()
+    apply_mode(read_mode())
+  end, 250)
+end
+
+local function run_theme(arg)
+  local bin = vim.fn.expand("~/bin/theme")
+  if vim.fn.executable(bin) == 0 then
+    vim.notify("theme command not found", vim.log.levels.ERROR)
     return
   end
-
-  file:write(updated_content)
-  file:close()
+  vim.fn.system({ bin, arg })
+  if vim.v.shell_error ~= 0 then
+    vim.notify("theme " .. arg .. " failed", vim.log.levels.ERROR)
+    return
+  end
+  apply_mode_now_and_later(read_mode())
 end
 
 function LightTheme()
-  vim.o.background = "light"
-  require('solarized').setup({})
-  vim.cmd.colorscheme('solarized')
-  UpdateWeztermTheme("Solarized Light (Gogh)")
+  run_theme("light")
 end
 
 function DarkTheme()
-  vim.o.background = "dark"
-  vim.cmd.colorscheme("terafox")
-  UpdateWeztermTheme("terafox")
+  run_theme("dark")
 end
 
 function ToggleTheme()
-  if vim.o.background == "dark" then
-    LightTheme()
-  else
-    DarkTheme()
-  end
-  vim.fn.system(
-    [[osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to not dark mode']]
-  )
+  run_theme("toggle")
 end
 
 function SyncTheme()
-  local current_theme = ReadWeztermTheme()
-  if current_theme and current_theme:find("Light") then
-    LightTheme()
-  else
-    DarkTheme()
-  end
+  apply_mode(read_mode())
 end
 
 vim.api.nvim_create_user_command("ToggleTheme", ToggleTheme, {})
 vim.api.nvim_create_user_command("SyncTheme", SyncTheme, {})
 vim.api.nvim_create_user_command("LightTheme", LightTheme, {})
 vim.api.nvim_create_user_command("DarkTheme", DarkTheme, {})
+
+local group = vim.api.nvim_create_augroup("theme_mode", { clear = true })
+vim.api.nvim_create_autocmd("OptionSet", {
+  group = group,
+  pattern = "background",
+  nested = true,
+  callback = function()
+    if applying then
+      return
+    end
+    vim.schedule(function()
+      apply_mode(read_mode())
+    end)
+  end,
+})
+
+vim.fn.mkdir(state_dir, "p")
+if _G.__theme_watcher then
+  _G.__theme_watcher:stop()
+  _G.__theme_watcher:close()
+end
+local watcher = uv.new_fs_event()
+local debounce
+watcher:start(state_dir, {}, vim.schedule_wrap(function(err, filename)
+  if err then
+    return
+  end
+  if filename and filename ~= "mode" then
+    return
+  end
+  if debounce then
+    debounce:stop()
+  end
+  debounce = vim.defer_fn(function()
+    debounce = nil
+    apply_mode_now_and_later(read_mode())
+  end, 50)
+end))
+_G.__theme_watcher = watcher
 
 SyncTheme()
