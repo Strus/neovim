@@ -5,14 +5,22 @@ local state_dir = vim.fn.expand("~/.local/state/theme")
 local mode_file = state_dir .. "/mode"
 local applied_mode
 local applying = false
+local is_macos = vim.fn.has("mac") == 1
 
 local function macos_is_dark()
+  if not is_macos or vim.fn.executable("osascript") == 0 then
+    return nil
+  end
+
   local result = vim.fn.system({
     "osascript",
     "-e",
     'tell application "System Events" to tell appearance preferences to get dark mode',
   })
-  return vim.v.shell_error == 0 and result:match("true") ~= nil
+  if vim.v.shell_error ~= 0 then
+    return nil
+  end
+  return result:match("true") ~= nil
 end
 
 local function read_mode()
@@ -24,10 +32,13 @@ local function read_mode()
       return mode
     end
   end
-  if macos_is_dark() then
-    return "dark"
+  local system_is_dark = macos_is_dark()
+  if system_is_dark ~= nil then
+    return system_is_dark and "dark" or "light"
   end
-  return "light"
+
+  -- Linux and Windows do not have a portable system theme API here.
+  return "dark"
 end
 
 local function apply_mode(mode)
@@ -76,10 +87,35 @@ local function apply_mode_now_and_later(mode)
   end, 250)
 end
 
+local function write_mode(mode)
+  vim.fn.mkdir(state_dir, "p")
+  local file = io.open(mode_file, "w")
+  if not file then
+    return false
+  end
+  file:write(mode .. "\n")
+  file:close()
+  return true
+end
+
 local function run_theme(arg)
+  local mode = arg
+  if mode == "toggle" then
+    mode = read_mode() == "dark" and "light" or "dark"
+  end
+
+  -- The external helper synchronizes macOS. On other platforms, keep the
+  -- Neovim theme usable without depending on a macOS-only command.
+  if not is_macos then
+    write_mode(mode)
+    apply_mode_now_and_later(mode)
+    return
+  end
+
   local bin = vim.fn.expand("~/bin/theme")
   if vim.fn.executable(bin) == 0 then
-    vim.notify("theme command not found", vim.log.levels.ERROR)
+    write_mode(mode)
+    apply_mode_now_and_later(mode)
     return
   end
   vim.fn.system({ bin, arg })
