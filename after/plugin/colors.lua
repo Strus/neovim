@@ -3,7 +3,9 @@ vim.o.termguicolors = true
 local uv = vim.loop
 local state_dir = vim.fn.expand("~/.local/state/theme")
 local mode_file = state_dir .. "/mode"
+local dir_file = state_dir .. "/dir"
 local applied_mode
+local applied_dir
 local applying = false
 local is_macos = vim.fn.has("mac") == 1
 
@@ -23,14 +25,23 @@ local function macos_is_dark()
   return result:match("true") ~= nil
 end
 
+local function read_line(path)
+  local file = io.open(path, "r")
+  if not file then
+    return nil
+  end
+  local line = vim.trim(file:read("*l") or "")
+  file:close()
+  if line == "" then
+    return nil
+  end
+  return line
+end
+
 local function read_mode()
-  local file = io.open(mode_file, "r")
-  if file then
-    local mode = file:read("*l")
-    file:close()
-    if mode == "dark" or mode == "light" then
-      return mode
-    end
+  local mode = read_line(mode_file)
+  if mode == "dark" or mode == "light" then
+    return mode
   end
   local system_is_dark = macos_is_dark()
   if system_is_dark ~= nil then
@@ -41,81 +52,182 @@ local function read_mode()
   return "dark"
 end
 
-local function apply_mode(mode)
+local function apply_colorscheme(name, background)
+  -- Setting background reloads terafox, which forces background=dark.
+  vim.cmd("hi clear")
+  if vim.fn.exists("syntax_on") == 1 then
+    vim.cmd("syntax reset")
+  end
+  vim.g.colors_name = nil
+  vim.cmd("noautocmd set background=" .. background)
+  vim.cmd.colorscheme(name)
+  if vim.o.background ~= background then
+    vim.cmd("noautocmd set background=" .. background)
+    vim.cmd.colorscheme(name)
+  end
+end
+
+local function colorscheme_available(name)
+  if vim.api.nvim_get_runtime_file("colors/" .. name .. ".lua", false)[1] then
+    return true
+  end
+  return vim.api.nvim_get_runtime_file("colors/" .. name .. ".vim", false)[1] ~= nil
+end
+
+local function toml_color(parsed, ...)
+  for i = 1, select("#", ...) do
+    local value = parsed[select(i, ...)]
+    if type(value) == "string" and value ~= "" then
+      return value
+    end
+  end
+end
+
+local function parse_colors_toml(path)
+  local file = io.open(path, "r")
+  if not file then
+    return nil
+  end
+  local parsed = {}
+  for line in file:lines() do
+    local key, value = line:match('^([%w_]+)%s*=%s*"([^"]*)"')
+    if key then
+      parsed[key] = value
+    end
+  end
+  file:close()
+  return parsed
+end
+
+local function aether_colors_from_toml(parsed)
+  local bg = toml_color(parsed, "background", "color0")
+  local fg = toml_color(parsed, "foreground", "color7", "color15")
+  if not bg or not fg then
+    error("colors.toml is missing background/foreground")
+  end
+  local accent = toml_color(parsed, "accent", "color4", "blue") or fg
+  local selection = toml_color(parsed, "selection", "selection_background", "color8") or bg
+  return {
+    bg = bg,
+    dark_bg = toml_color(parsed, "dark_background") or bg,
+    darker_bg = toml_color(parsed, "darker_background", "dark_background") or bg,
+    lighter_bg = toml_color(parsed, "lighter_background", "color8") or bg,
+    fg = fg,
+    dark_fg = toml_color(parsed, "dark_foreground", "muted", "color8") or fg,
+    light_fg = toml_color(parsed, "light_foreground") or fg,
+    bright_fg = toml_color(parsed, "bright_foreground", "color15") or fg,
+    muted = toml_color(parsed, "muted", "color8") or fg,
+    red = toml_color(parsed, "red", "color1"),
+    yellow = toml_color(parsed, "yellow", "color3"),
+    orange = toml_color(parsed, "orange", "accent", "color4"),
+    green = toml_color(parsed, "green", "color2"),
+    cyan = toml_color(parsed, "cyan", "color6"),
+    blue = toml_color(parsed, "blue", "color4"),
+    magenta = toml_color(parsed, "magenta", "purple", "color5"),
+    brown = toml_color(parsed, "brown", "orange") or accent,
+    bright_red = toml_color(parsed, "bright_red", "color9", "red", "color1"),
+    bright_yellow = toml_color(parsed, "bright_yellow", "color11", "yellow", "color3"),
+    bright_green = toml_color(parsed, "bright_green", "color10", "green", "color2"),
+    bright_cyan = toml_color(parsed, "bright_cyan", "color14", "cyan", "color6"),
+    bright_blue = toml_color(parsed, "bright_blue", "color12", "blue", "color4"),
+    bright_magenta = toml_color(parsed, "bright_magenta", "color13", "magenta", "purple", "color5"),
+    accent = accent,
+    cursor = toml_color(parsed, "cursor", "bright_foreground", "foreground") or fg,
+    foreground = fg,
+    background = bg,
+    selection = selection,
+    selection_foreground = toml_color(parsed, "selection_foreground", "bright_foreground", "foreground") or fg,
+    selection_background = toml_color(parsed, "selection_background", "selection") or selection,
+  }
+end
+
+local function apply_aether(opts, background)
+  require("aether").setup(opts)
+  apply_colorscheme("aether", background)
+end
+
+local function apply_neovim_lua(path, background)
+  if vim.fn.filereadable(path) == 0 then
+    return false
+  end
+  local result = dofile(path)
+  if type(result) ~= "table" then
+    return false
+  end
+  local specs = type(result[1]) == "table" and result or { result }
+  local aether_opts
+  local colorscheme
+  for _, spec in ipairs(specs) do
+    local id = spec[1]
+    if type(id) == "string" then
+      local lower = id:lower()
+      if lower:find("aether", 1, true) then
+        aether_opts = spec.opts or {}
+      elseif lower:find("lazyvim", 1, true) then
+        colorscheme = spec.opts and spec.opts.colorscheme
+      end
+    end
+  end
+  if aether_opts then
+    apply_aether(aether_opts, background)
+    return true
+  end
+  if type(colorscheme) == "string" and colorscheme_available(colorscheme) then
+    apply_colorscheme(colorscheme, background)
+    return true
+  end
+  return false
+end
+
+local function apply_aether_from_toml(path, background)
+  local parsed = parse_colors_toml(path)
+  if not parsed then
+    error("missing colors.toml: " .. path)
+  end
+  apply_aether({ colors = aether_colors_from_toml(parsed) }, background)
+end
+
+local function apply_theme()
+  local mode = read_mode()
+  local dir = read_line(dir_file)
   local background = mode == "light" and "light" or "dark"
-  local name = mode == "light" and "solarized" or "terafox"
+  if not dir then
+    return
+  end
   if not applying
       and mode == applied_mode
-      and vim.o.background == background
-      and vim.g.colors_name == name then
+      and dir == applied_dir
+      and vim.o.background == background then
     return
   end
 
   applying = true
   local ok, err = pcall(function()
-    -- Setting background reloads terafox, which forces background=dark.
-    vim.cmd("hi clear")
-    if vim.fn.exists("syntax_on") == 1 then
-      vim.cmd("syntax reset")
+    if not apply_neovim_lua(dir .. "/neovim.lua", background) then
+      apply_aether_from_toml(dir .. "/colors.toml", background)
     end
-    vim.g.colors_name = nil
-    vim.cmd("noautocmd set background=" .. background)
-
-    if mode == "light" then
-      require("solarized").setup({})
-    end
-    vim.cmd.colorscheme(name)
-
-    if vim.o.background ~= background then
-      vim.cmd("noautocmd set background=" .. background)
-      vim.cmd.colorscheme(name)
-    end
-
     vim.cmd.redraw()
   end)
   applying = false
   if not ok then
-    error(err)
+    vim.notify("theme apply failed: " .. tostring(err), vim.log.levels.ERROR)
+    return
   end
   applied_mode = mode
+  applied_dir = dir
 end
 
-local function apply_mode_now_and_later(mode)
-  apply_mode(mode)
+local function apply_theme_now_and_later()
+  apply_theme()
   vim.defer_fn(function()
-    apply_mode(read_mode())
+    apply_theme()
   end, 250)
 end
 
-local function write_mode(mode)
-  vim.fn.mkdir(state_dir, "p")
-  local file = io.open(mode_file, "w")
-  if not file then
-    return false
-  end
-  file:write(mode .. "\n")
-  file:close()
-  return true
-end
-
 local function run_theme(arg)
-  local mode = arg
-  if mode == "toggle" then
-    mode = read_mode() == "dark" and "light" or "dark"
-  end
-
-  -- The external helper synchronizes macOS. On other platforms, keep the
-  -- Neovim theme usable without depending on a macOS-only command.
-  if not is_macos then
-    write_mode(mode)
-    apply_mode_now_and_later(mode)
-    return
-  end
-
   local bin = vim.fn.expand("~/bin/theme")
   if vim.fn.executable(bin) == 0 then
-    write_mode(mode)
-    apply_mode_now_and_later(mode)
+    vim.notify("theme: ~/bin/theme is required", vim.log.levels.ERROR)
     return
   end
   vim.fn.system({ bin, arg })
@@ -123,7 +235,7 @@ local function run_theme(arg)
     vim.notify("theme " .. arg .. " failed", vim.log.levels.ERROR)
     return
   end
-  apply_mode_now_and_later(read_mode())
+  apply_theme_now_and_later()
 end
 
 function LightTheme()
@@ -139,7 +251,9 @@ function ToggleTheme()
 end
 
 function SyncTheme()
-  apply_mode(read_mode())
+  applied_mode = nil
+  applied_dir = nil
+  apply_theme()
 end
 
 vim.api.nvim_create_user_command("ToggleTheme", ToggleTheme, {})
@@ -157,7 +271,7 @@ vim.api.nvim_create_autocmd("OptionSet", {
       return
     end
     vim.schedule(function()
-      apply_mode(read_mode())
+      apply_theme()
     end)
   end,
 })
@@ -173,7 +287,7 @@ watcher:start(state_dir, {}, vim.schedule_wrap(function(err, filename)
   if err then
     return
   end
-  if filename and filename ~= "mode" then
+  if filename and filename ~= "mode" and filename ~= "name" and filename ~= "dir" then
     return
   end
   if debounce then
@@ -181,7 +295,7 @@ watcher:start(state_dir, {}, vim.schedule_wrap(function(err, filename)
   end
   debounce = vim.defer_fn(function()
     debounce = nil
-    apply_mode_now_and_later(read_mode())
+    apply_theme_now_and_later()
   end, 50)
 end))
 _G.__theme_watcher = watcher
