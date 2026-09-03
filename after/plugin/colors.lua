@@ -187,13 +187,14 @@ local function apply_aether_from_toml(path, background)
   apply_aether({ colors = aether_colors_from_toml(parsed) }, background)
 end
 
+local function apply_fallback(background)
+  apply_colorscheme("terafox", background)
+end
+
 local function apply_theme()
   local mode = read_mode()
   local dir = read_line(dir_file)
   local background = mode == "light" and "light" or "dark"
-  if not dir then
-    return
-  end
   if not applying
       and mode == applied_mode
       and dir == applied_dir
@@ -203,16 +204,34 @@ local function apply_theme()
 
   applying = true
   local ok, err = pcall(function()
-    if not apply_neovim_lua(dir .. "/neovim.lua", background) then
-      apply_aether_from_toml(dir .. "/colors.toml", background)
+    if dir then
+      if not apply_neovim_lua(dir .. "/neovim.lua", background) then
+        apply_aether_from_toml(dir .. "/colors.toml", background)
+      end
+    else
+      apply_fallback(background)
     end
     vim.cmd.redraw()
   end)
-  applying = false
   if not ok then
-    vim.notify("theme apply failed: " .. tostring(err), vim.log.levels.ERROR)
+    local fallback_ok, fallback_err = pcall(function()
+      apply_fallback(background)
+      vim.cmd.redraw()
+    end)
+    applying = false
+    if fallback_ok then
+      vim.notify("theme apply failed: " .. tostring(err) .. "; using terafox", vim.log.levels.ERROR)
+      applied_mode = mode
+      applied_dir = dir
+    else
+      vim.notify(
+        "theme apply failed: " .. tostring(err) .. "; terafox fallback failed: " .. tostring(fallback_err),
+        vim.log.levels.ERROR
+      )
+    end
     return
   end
+  applying = false
   applied_mode = mode
   applied_dir = dir
 end
