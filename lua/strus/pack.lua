@@ -58,6 +58,7 @@ vim.pack.add({
   -- themes
   'https://github.com/EdenEast/nightfox.nvim',
   'https://github.com/maxmx03/solarized.nvim',
+  { src = 'https://github.com/bjarneo/aether.nvim', version = 'v3' },
 
   -- code-specific (lsp etc.)
   { src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main' },

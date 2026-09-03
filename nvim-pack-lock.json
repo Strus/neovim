@@ -8,6 +8,11 @@
       "rev": "0abc8f390b278c3b4aabc4c004ac8a088b65cf24",
       "src": "https://github.com/L3MON4D3/LuaSnip"
     },
+    "aether.nvim": {
+      "rev": "567efb778534e11ee1072d4fe27178f705a27d8a",
+      "src": "https://github.com/bjarneo/aether.nvim",
+      "version": "'v3'"
+    },
     "async.nvim": {
       "rev": "e2a813be9cd143ab1181de6d8a0720e0230cd86e",
       "src": "https://github.com/lewis6991/async.nvim"
