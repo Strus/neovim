@@ -47,8 +47,6 @@ local function read_mode()
   if system_is_dark ~= nil then
     return system_is_dark and "dark" or "light"
   end
-
-  -- Linux and Windows do not have a portable system theme API here.
   return "dark"
 end
 
@@ -68,10 +66,8 @@ local function apply_colorscheme(name, background)
 end
 
 local function colorscheme_available(name)
-  if vim.api.nvim_get_runtime_file("colors/" .. name .. ".lua", false)[1] then
-    return true
-  end
-  return vim.api.nvim_get_runtime_file("colors/" .. name .. ".vim", false)[1] ~= nil
+  return vim.api.nvim_get_runtime_file("colors/" .. name .. ".lua", false)[1]
+    or vim.api.nvim_get_runtime_file("colors/" .. name .. ".vim", false)[1]
 end
 
 local function toml_color(parsed, ...)
@@ -187,53 +183,43 @@ local function apply_aether_from_toml(path, background)
   apply_aether({ colors = aether_colors_from_toml(parsed) }, background)
 end
 
-local function apply_fallback(background)
-  apply_colorscheme("terafox", background)
-end
-
 local function apply_theme()
+  if applying then
+    return
+  end
   local mode = read_mode()
   local dir = read_line(dir_file)
-  local background = mode == "light" and "light" or "dark"
-  if not applying
-      and mode == applied_mode
-      and dir == applied_dir
-      and vim.o.background == background then
+  if mode == applied_mode and dir == applied_dir and vim.o.background == mode then
     return
   end
 
   applying = true
   local ok, err = pcall(function()
-    if dir then
-      if not apply_neovim_lua(dir .. "/neovim.lua", background) then
-        apply_aether_from_toml(dir .. "/colors.toml", background)
-      end
-    else
-      apply_fallback(background)
+    if not dir then
+      apply_colorscheme("terafox", mode)
+    elseif not apply_neovim_lua(dir .. "/neovim.lua", mode) then
+      apply_aether_from_toml(dir .. "/colors.toml", mode)
     end
     vim.cmd.redraw()
   end)
   if not ok then
     local fallback_ok, fallback_err = pcall(function()
-      apply_fallback(background)
+      apply_colorscheme("terafox", mode)
       vim.cmd.redraw()
     end)
-    applying = false
-    if fallback_ok then
-      vim.notify("theme apply failed: " .. tostring(err) .. "; using terafox", vim.log.levels.ERROR)
-      applied_mode = mode
-      applied_dir = dir
-    else
+    if not fallback_ok then
       vim.notify(
         "theme apply failed: " .. tostring(err) .. "; terafox fallback failed: " .. tostring(fallback_err),
         vim.log.levels.ERROR
       )
+      applying = false
+      return
     end
-    return
+    vim.notify("theme apply failed: " .. tostring(err) .. "; using terafox", vim.log.levels.ERROR)
   end
-  applying = false
   applied_mode = mode
   applied_dir = dir
+  applying = false
 end
 
 local function apply_theme_now_and_later()
