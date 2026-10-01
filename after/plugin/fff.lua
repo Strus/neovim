@@ -16,7 +16,7 @@ fff.setup({
     cycle_previous_query = { '<C-k>' },
   },
   grep = {
-    modes = { 'fuzzy', 'plain' },
+    modes = { 'plain', 'fuzzy' },
   },
 })
 
