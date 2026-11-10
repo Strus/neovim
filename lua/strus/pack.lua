@@ -117,7 +117,6 @@ vim.pack.add({
 
   -- misc
   'https://github.com/wookayin/wilder.nvim',
-  'https://github.com/wakatime/vim-wakatime',
   'https://github.com/iamcco/markdown-preview.nvim',
   'https://github.com/asiryk/auto-hlsearch.nvim',
   'https://github.com/folke/snacks.nvim',

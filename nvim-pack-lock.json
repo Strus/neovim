@@ -283,10 +283,6 @@
       "rev": "2676d84c6901e484df00b5d728bd6a345d47ee12",
       "src": "https://github.com/vim-test/vim-test"
     },
-    "vim-wakatime": {
-      "rev": "2a856d0b7863dc34ffc80647cb52fbd1319fe144",
-      "src": "https://github.com/wakatime/vim-wakatime"
-    },
     "wilder.nvim": {
       "rev": "c4795a764d40dcf9c055789402781035d0076973",
       "src": "https://github.com/wookayin/wilder.nvim"
